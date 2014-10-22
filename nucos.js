@@ -801,9 +801,54 @@ function Simplify(str){
 **/
 function GetUnitTypes(){
     var keysArray = [];
-    for (key in unitDict){
+    for (var key in unitDict){
         keysArray.push(key);
     }
     return keysArray;
-}   
+}
 
+/**
+ * @return a list of all the units available for a given unit
+ * type available
+ * a unit type is something like "mass" while a unit of mass
+ * would be "kilogram", "slug", etc.
+**/
+function GetUnitNames(unitType){
+    var namesArray = [];
+    for (var key in unitDict[unitType]){
+        namesArray.push(key);
+    }
+    return namesArray;
+}
+
+/**
+ * @return a mapping of all the unit names to the unit types
+**/
+function FindUnitTypes(){
+    var unitTypes = {};
+    var unitKeys = GetUnitTypes();
+    for (var unitType in unitKeys){
+        if (unitType === "Oil Concentration" || unitType === "Concentration In Water"){
+            continue;
+        }
+
+    }
+}
+
+/**
+ * @param unitType the type of unit: "mass", "length", etc.
+ * @param unit the unit you want the abbreviation for: "gram", etc.
+ * @return the standard abbreviation for a given unit
+**/
+function GetUnitAbbreviation(unitType, unit){
+    return unitDict[unitType][unit][1][0];
+}
+
+/**
+ * @param unit1 string of unit to compare
+ * @param unit2 string of unit to compare
+ * @return boolean showing if the units are synonyms or not
+**/
+function isSameUnit(unit1, unit2){
+    var allTypes = FindUnitTypes();
+}
