@@ -1,4 +1,5 @@
-var unitDict = {
+ function nucos(){   
+    this.unitDict = {
     "Temperature": {
         "Fahrenheit": [
             [
@@ -783,151 +784,158 @@ var unitDict = {
             ]
         ]
     }
-};
+    };
 
-/**
- * 
- * @param str String that is manipulated
- * @return The string with the whitespace and capitalization removed
-**/
-function _Simplify(str){
-    var string = "";
-    return str.toLowerCase().split(" ").join("");
-}
+    /**
+    * 
+    * @param str String that is manipulated
+    * @return The string with the whitespace and capitalization removed
+    **/
+    this._Simplify = function(str){
+        var string = "";
+        return str.toLowerCase().split(" ").join("");
+    },
 
-/**
- * @return a list of all the unit types available
- * a unit type is something like "mass", "velocity", etc.
-**/
-function _GetUnitTypes(){
-    var keysArray = [];
-    for (var key in unitDict){
-        keysArray.push(key);
-    }
-    return keysArray;
-}
-
-/**
- * @return a list of all the units available for a given unit
- * type available
- * a unit type is something like "mass" while a unit of mass
- * would be "kilogram", "slug", etc.
-**/
-function _GetUnitNames(unitType){
-    var namesArray = [];
-    for (var key in unitDict[unitType]){
-        namesArray.push(key);
-    }
-    return namesArray;
-}
-
-function _items(obj){
-    var itemsArray = [];
-    for (var key in obj){
-        itemsArray.push(obj[key]);
-    }
-    return itemsArray;
-}
-
-/**
- * @return a mapping of all the unit names to the unit types
-**/
-function _FindUnitTypes(){
-    var unitTypes = {};
-    var unitKeys = _GetUnitTypes();
-    for (var i = 0; i < unitKeys.length; i++){
-        var unitType = unitKeys[i];
-        if (unitType === "Oil Concentration" || unitType === "Concentration In Water"){
-            continue;
+    /**
+    * @return a list of all the unit types available
+    * a unit type is something like "mass", "velocity", etc.
+    **/
+    this._GetUnitTypes = function(){
+        var keysArray = [];
+        for (var key in unitDict){
+            keysArray.push(key);
         }
-        for (var primaryName in unitDict[unitType]){
-            var pname = primaryName;
-            unitTypes[pname] = unitType;
-            for (var key in unitDict[unitType]){
-                for (var k = 0; k < unitDict[unitType][key][1].length; k++){
-                    if (unitType === "Volume" && unitDict[unitType][key][1][k] === "oz"){
-                        continue;
+        return keysArray;
+    },   
+
+    /**
+    * @return a list of all the units available for a given unit
+    * type available
+    * a unit type is something like "mass" while a unit of mass
+    * would be "kilogram", "slug", etc.
+    **/
+    this._GetUnitNames = function(unitType){
+        var namesArray = [];
+        for (var key in unitDict[unitType]){
+            namesArray.push(key);
+        }
+        return namesArray;
+    },
+
+    this._items = function(obj){
+        var itemsArray = [];
+        for (var key in obj){
+            itemsArray.push(obj[key]);
+        }
+        return itemsArray;
+    },
+
+    /**
+    * @return a mapping of all the unit names to the unit types
+    **/
+    this._FindUnitTypes = function(){
+        var unitTypes = {};
+        var unitKeys = _GetUnitTypes();
+        for (var i = 0; i < unitKeys.length; i++){
+            var unitType = unitKeys[i];
+            if (unitType === "Oil Concentration" || unitType === "Concentration In Water"){
+                continue;
+            }
+            for (var primaryName in unitDict[unitType]){
+                var pname = primaryName;
+                unitTypes[pname] = unitType;
+                for (var key in unitDict[unitType]){
+                    for (var k = 0; k < unitDict[unitType][key][1].length; k++){
+                        if (unitType === "Volume" && unitDict[unitType][key][1][k] === "oz"){
+                            continue;
+                        }
+                        unitTypes[unitDict[unitType][key][1][k]] = unitType;
                     }
-                    unitTypes[unitDict[unitType][key][1][k]] = unitType;
                 }
             }
         }
-    }
-    return unitTypes;
-}
-
-/**
- * @param unitType the type of unit: "mass", "length", etc.
- * @param unit the unit you want the abbreviation for: "gram", etc.
- * @return the standard abbreviation for a given unit
-**/
-function _GetUnitAbbreviation(unitType, unit){
-    return unitDict[unitType][unit][1][0];
-}
-
-/**
- * @param unit1 string of unit to compare
- * @param unit2 string of unit to compare
- * @return boolean showing if the units are synonyms or not
-**/
-function _isSameUnit(unit1, unit2){
-    var allTypes = FindUnitTypes();
-}
-
-function ConverterClass(TypeName, UnitsDict){
-    this.Name = TypeName;
-    this.Synonyms = {};
-    this.Convertdata = {};
-    for (var primaryName in unitDict){
-        var pname = Simplify(primaryName);
-        this.Convertdata[pname] = data[0];
-    }
-    this.Convert = function(FromUnit, ToUnit, Value){
-        var fromUnit = Simplify(FromUnit);
-        var toUnit = Simplify(ToUnit);
-    };
-}
-
-function convert(UnitType, FromUnit, ToUnit, Value){
-    var unitType = Simplify(UnitType);
-    var converterClass = new ConverterClass(UnitType, unitDict);
-
-    return converterClass.Convert(FromUnit, ToUnit, Value);
-}
-
-/**
- * class for Oil Quantity conversion -- mass to/from Volume
- * requires density info as well
-**/
-function OilQuantityConverter(){
+        return unitTypes;
+    },
 
     /**
-     * @param Mass: mass you want converted to volume
-     * @param MassUnits: unit of mass input
-     * @param Density: density of oil
-     * @param DensityUnits: units of density
-     * @param VolumeUnits: units of volume desired
+    * @param unitType the type of unit: "mass", "length", etc.
+    * @param unit the unit you want the abbreviation for: "gram", etc.
+    * @return the standard abbreviation for a given unit
     **/
-    this.ToVolume = function(Mass, MassUnits, Density, DensityUnits, VolumeUnits){
-        var density = convert("Density", DensityUnits, "kg/m^3", Density);
-        var mass = convert("Mass", MassUnits, "kg", Mass);
-        var volume = mass / density;
-        volume = convert("Volume", "m^3", VolumeUnits, Volume);
-        return volume;
-    };
+    this._GetUnitAbbreviation = function(unitType, unit){
+        return unitDict[unitType][unit][1][0];
+    },
 
     /**
-     * @param Volume: volume you want converted to mass
-     * @param VolumeUnits: units of volume input
-     * @param Density: density of oil
-     * @param DensityUnits: units of density
-     * @param MassUnits: unit of mass desired for output
+    * @param unit1 string of unit to compare
+    * @param unit2 string of unit to compare
+    * @return boolean showing if the units are synonyms or not
     **/
-    this.ToMass = function(Volume, VolUnits, Density, DensityUnits, MassUnits){
-        var density = convert("Density", DensityUnits, "kg/m^3", Density);
-        var volume = convert("Volume", VolUnits, "m^3", Volume);
-        var mass = volume * density;
-        mass = convert("Mass", "kg", MassUnits, Mass);
-        return mass;
+    this._isSameUnit = function(unit1, unit2){
+        var allTypes = FindUnitTypes();
+    },
+
+    this.ConverterClass = function(TypeName, UnitsDict){
+        this.Name = TypeName;
+        this.Synonyms = {};
+        this.Convertdata = {};
+        for (var primaryName in unitDict){
+            var pname = _Simplify(primaryName);
+            this.Convertdata[pname] = data[0];
+        }
+        this.Convert = function(FromUnit, ToUnit, Value){
+            var fromUnit = _Simplify(FromUnit);
+            var toUnit = _Simplify(ToUnit);
+
+            return Value * this.Convertdata[FromUnit] / this.Convertdata[ToUnit];
+        };
+    },
+
+    this.convert = function(UnitType, FromUnit, ToUnit, Value){
+        var unitType = _Simplify(UnitType);
+        var converterClass = new ConverterClass(UnitType, unitDict);
+
+        return converterClass.Convert(FromUnit, ToUnit, Value);
+    },
+
+    /**
+    * class for Oil Quantity conversion -- mass to/from Volume
+    * requires density info as well
+    **/
+    this.OilQuantityConverter = function(){
+
+        /**
+         * @param Mass: mass you want converted to volume
+         * @param MassUnits: unit of mass input
+         * @param Density: density of oil
+         * @param DensityUnits: units of density
+         * @param VolumeUnits: units of volume desired
+        **/
+        this.ToVolume = function(Mass, MassUnits, Density, DensityUnits, VolumeUnits){
+            var density = convert("Density", DensityUnits, "kg/m^3", Density);
+            var mass = convert("Mass", MassUnits, "kg", Mass);
+            var volume = mass / density;
+            volume = convert("Volume", "m^3", VolumeUnits, Volume);
+            return volume;
+        };
+
+        /**
+         * @param Volume: volume you want converted to mass
+         * @param VolumeUnits: units of volume input
+         * @param Density: density of oil
+         * @param DensityUnits: units of density
+         * @param MassUnits: unit of mass desired for output
+        **/
+        this.ToMass = function(Volume, VolUnits, Density, DensityUnits, MassUnits){
+            var density = convert("Density", DensityUnits, "kg/m^3", Density);
+            var volume = convert("Volume", VolUnits, "m^3", Volume);
+            var mass = volume * density;
+            mass = convert("Mass", "kg", MassUnits, Mass);
+            return mass;
+        };
     };
 }
+
+var moo = new nucos();
+var boo = new moo.OilQuantityConverter();
+console.log(boo.ToVolume);
