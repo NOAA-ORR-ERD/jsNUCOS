@@ -835,17 +835,21 @@ function _items(obj){
 function _FindUnitTypes(){
     var unitTypes = {};
     var unitKeys = _GetUnitTypes();
-    for (var unitType in unitKeys){
+    for (var i = 0; i < unitKeys.length; i++){
+        var unitType = unitKeys[i];
         if (unitType === "Oil Concentration" || unitType === "Concentration In Water"){
             continue;
         }
         for (var primaryName in unitDict[unitType]){
             var pname = primaryName;
             unitTypes[pname] = unitType;
+            //for (var key in )
         }
     }
     return unitTypes;
 }
+_FindUnitTypes();
+//console.log(unitDict["Temperature"]);
 
 /**
  * @param unitType the type of unit: "mass", "length", etc.
@@ -871,7 +875,7 @@ function ConverterClass(TypeName, UnitsDict){
     this.Convertdata = {};
     for (var primaryName in unitDict){
         var pname = Simplify(primaryName);
-        this.Convertdata[pname] = data[0]
+        this.Convertdata[pname] = data[0];
     }
     this.Convert = function(FromUnit, ToUnit, Value){
         var fromUnit = Simplify(FromUnit);
@@ -880,7 +884,10 @@ function ConverterClass(TypeName, UnitsDict){
 }
 
 function convert(UnitType, FromUnit, ToUnit, Value){
+    var unitType = Simplify(UnitType);
+    var converterClass = new ConverterClass(UnitType, unitDict);
 
+    return converterClass.Convert(FromUnit, ToUnit, Value);
 }
 
 /**
@@ -897,7 +904,11 @@ function OilQuantityConverter(){
      * @param VolumeUnits: units of volume desired
     **/
     this.ToVolume = function(Mass, MassUnits, Density, DensityUnits, VolumeUnits){
-        var density = Density;
+        var density = convert("Density", DensityUnits, "kg/m^3", Density);
+        var mass = convert("Mass", MassUnits, "kg", Mass);
+        var volume = mass / density;
+        volume = convert("Volume", "m^3", VolumeUnits, Volume);
+        return volume;
     };
 
     /**
@@ -908,6 +919,10 @@ function OilQuantityConverter(){
      * @param MassUnits: unit of mass desired for output
     **/
     this.ToMass = function(Volume, VolUnits, Density, DensityUnits, MassUnits){
-
+        var density = convert("Density", DensityUnits, "kg/m^3", Density);
+        var volume = convert("Volume", VolUnits, "m^3", Volume);
+        var mass = volume * density;
+        mass = convert("Mass", "kg", MassUnits, Mass);
+        return mass;
     };
 }
