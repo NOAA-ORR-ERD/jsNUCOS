@@ -843,13 +843,18 @@ function _FindUnitTypes(){
         for (var primaryName in unitDict[unitType]){
             var pname = primaryName;
             unitTypes[pname] = unitType;
-            //for (var key in )
+            for (var key in unitDict[unitType]){
+                for (var k = 0; k < unitDict[unitType][key][1].length; k++){
+                    if (unitType === "Volume" && unitDict[unitType][key][1][k] === "oz"){
+                        continue;
+                    }
+                    unitTypes[unitDict[unitType][key][1][k]] = unitType;
+                }
+            }
         }
     }
     return unitTypes;
 }
-_FindUnitTypes();
-//console.log(unitDict["Temperature"]);
 
 /**
  * @param unitType the type of unit: "mass", "length", etc.
