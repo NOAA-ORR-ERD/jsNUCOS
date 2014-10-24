@@ -802,11 +802,11 @@
     **/
     this._GetUnitTypes = function(){
         var keysArray = [];
-        for (var key in unitDict){
+        for (var key in this.unitDict){
             keysArray.push(key);
         }
         return keysArray;
-    },   
+    },
 
     /**
     * @return a list of all the units available for a given unit
@@ -834,22 +834,23 @@
     * @return a mapping of all the unit names to the unit types
     **/
     this._FindUnitTypes = function(){
+        console.log(this.unitDict);
         var unitTypes = {};
-        var unitKeys = _GetUnitTypes();
+        var unitKeys = this._GetUnitTypes();
         for (var i = 0; i < unitKeys.length; i++){
             var unitType = unitKeys[i];
             if (unitType === "Oil Concentration" || unitType === "Concentration In Water"){
                 continue;
             }
-            for (var primaryName in unitDict[unitType]){
+            for (var primaryName in this.unitDict[unitType]){
                 var pname = primaryName;
                 unitTypes[pname] = unitType;
-                for (var key in unitDict[unitType]){
-                    for (var k = 0; k < unitDict[unitType][key][1].length; k++){
-                        if (unitType === "Volume" && unitDict[unitType][key][1][k] === "oz"){
+                for (var key in this.unitDict[unitType]){
+                    for (var k = 0; k < this.unitDict[unitType][key][1].length; k++){
+                        if (unitType === "Volume" && this.unitDict[unitType][key][1][k] === "oz"){
                             continue;
                         }
-                        unitTypes[unitDict[unitType][key][1][k]] = unitType;
+                        unitTypes[this.unitDict[unitType][key][1][k]] = unitType;
                     }
                 }
             }
@@ -879,9 +880,9 @@
         this.Name = TypeName;
         this.Synonyms = {};
         this.Convertdata = {};
-        for (var primaryName in unitDict){
-            var pname = _Simplify(primaryName);
-            this.Convertdata[pname] = data[0];
+        for (var primaryName in this.unitDict){
+            var pname = this._Simplify(primaryName);
+            this.Convertdata[pname] = this.unitDict[primaryName][0];
         }
         this.Convert = function(FromUnit, ToUnit, Value){
             var fromUnit = _Simplify(FromUnit);
@@ -933,9 +934,9 @@
             mass = convert("Mass", "kg", MassUnits, Mass);
             return mass;
         };
-    };
+    }
 }
 
 var moo = new nucos();
-var boo = new moo.OilQuantityConverter();
-console.log(boo.ToVolume);
+console.log(moo._FindUnitTypes());
+
