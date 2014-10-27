@@ -886,24 +886,48 @@ function Nucos() {
         this.Name = TypeName;
         this.Synonyms = {};
         this.Convertdata = {};
-        for (var primaryName in unitDict){
-            for (var key in unitDict[primaryName]){
-                var pname = _Simplify(key);
-                this.Convertdata[pname] = unitDict[primaryName][key][0];
-                this.Synonyms[pname] = unitDict[primaryName][key][1];
+        
+        
+        // loop through the UnitsDict to construct the a per term value and synomym set.
+        // ['degrees', ((1.0, 273.16), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
+        
+        var dataDict = [];
+        for (var unitType in UnitsDict){
+            for(var unitTerm in UnitsDict[unitType]){
+                dataDict.push([unitTerm, UnitsDict[unitType][unitTerm]]);
             }
         }
-        console.log(this.Synonyms);
+
+        for(var dataset in dataDict){
+            var primaryName = dataDict[dataset][0];
+            var data = dataDict[dataset][1];
+        
+            var pname = _Simplify(primaryName);
+            this.Convertdata[pname] = data[0];
+            this.Synonyms[pname] = pname;
+        
+            for (var synonym in data[1]){
+                this.Synonyms[_Simplify(data[1][synonym])] = pname;
+            }
+        }
+        
         this.Convert = function(FromUnit, ToUnit, Value){
             var fromUnit = _Simplify(FromUnit);
             var toUnit = _Simplify(ToUnit);
             var value = Value;
-            if (fromUnit === "apidegree"){
-                value = 141.5 / (value + 131.5);
-            }
+
+            toUnit = this.Synonyms[toUnit];
+            fromUnit = this.Synonyms[fromUnit];
+
+            // if (fromUnit === "apidegree"){
+            //     value = 141.5 / (value + 131.5);
+            // }
+            
             return value * this.Convertdata[fromUnit] / this.Convertdata[toUnit];
         };
     };
+    
+    var DensityConverterClass = ConverterClass.protoype
 
     var convert = function(UnitType, FromUnit, ToUnit, Value){
         var unitType = _Simplify(UnitType);
@@ -962,8 +986,13 @@ function Nucos() {
 }
 
 var moo = new Nucos();
+
 OilConverter = new moo.OilQuantityConverter();
-console.log(OilConverter.ToVolume(50, "kg", 10, "API degree", "m^3"));
+// console.log('Volume Test: ' + moo.convert('Volume', 'gal', 'cubic meter', 200));
+console.log(OilConverter.ToVolume(50, "ton", 10, "API degree", "cubic meter"));
+
+
+
 
 
 
