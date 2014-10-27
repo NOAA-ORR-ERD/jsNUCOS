@@ -918,21 +918,61 @@ function Nucos() {
 
             toUnit = this.Synonyms[toUnit];
             fromUnit = this.Synonyms[fromUnit];
-
-            // if (fromUnit === "apidegree"){
-            //     value = 141.5 / (value + 131.5);
-            // }
-            
             return value * this.Convertdata[fromUnit] / this.Convertdata[toUnit];
         };
     };
     
-    var DensityConverterClass = ConverterClass.protoype
+    var DensityConverterClass = function(TypeName, UnitsDict){
+        ConverterClass.call(this, TypeName, UnitsDict);
+    };
+
+    DensityConverterClass.prototype = Object.create(ConverterClass.prototype);
+
+    DensityConverterClass.prototype.constructor = DensityConverterClass;
+
+    DensityConverterClass.prototype.Convert = function(FromUnit, ToUnit, Value){
+        var fromUnit = _Simplify(FromUnit);
+        var toUnit = _Simplify(ToUnit);
+        var value = Value;
+        var toVal;
+
+        if (fromUnit === "apidegree"){
+            value = 141.5 / (value + 131.5);
+            fromUnit = "specificgravity(15\xb0c)";
+        }
+        if (toUnit === "apidegree"){
+            toVal = 141.5 / (value * this.Convertdata[fromUnit] / this.Convertdata["specificgravity(15\xb0c)"]) - 131.5;
+        } else {
+            toVal = value * this.Convertdata[fromUnit] / this.Convertdata[toUnit];
+        }
+        return toVal;
+    };
+
+    // loop through the UnitsDict to construct the a per term value and synomym set.
+    // ['degrees', ((1.0, 273.16), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
+    var Converters = {};
+
+    for (var unitType in unitDict){
+        for(var unitTerm in unitDict[unitType]){
+            var dataDict = [];
+            dataDict.push([unitTerm, unitDict[unitType][unitTerm]]);
+        }
+        if (unitType.toLowerCase() === "density"){
+            Converters["density"] = new DensityConverterClass(unitType, dataDict);
+        } else {
+            Converters[_Simplify(unitType)] = new ConverterClass(unitType, dataDict);
+        }
+    }
+    // for(var dataset in dataDict){
+    //     var primaryName = dataDict[dataset][0];
+    //     var data = dataDict[dataset][1];
+        
+    // }
 
     var convert = function(UnitType, FromUnit, ToUnit, Value){
         var unitType = _Simplify(UnitType);
-        var converterClass = new ConverterClass(UnitType, unitDict);
-        return converterClass.Convert(FromUnit, ToUnit, Value);
+        var Converter = Converters[unitType];
+        return Converter.Convert(FromUnit, ToUnit, Value);
     };
 
     /**
@@ -981,14 +1021,18 @@ function Nucos() {
         _Simplify: _Simplify,
         _GetUnitTypes: _GetUnitTypes,
         OilQuantityConverter: OilQuantityConverter,
-        convert: convert
+        convert: convert,
+        DensityConverterClass: DensityConverterClass
     };
 }
 
 var moo = new Nucos();
 
 OilConverter = new moo.OilQuantityConverter();
+var densityConverter = new moo.DensityConverterClass();
+console.log(densityConverter);
 // console.log('Volume Test: ' + moo.convert('Volume', 'gal', 'cubic meter', 200));
+console.log(moo.convert("Density", "api", "kg/m^3", 10));
 console.log(OilConverter.ToVolume(50, "ton", 10, "API degree", "cubic meter"));
 
 
