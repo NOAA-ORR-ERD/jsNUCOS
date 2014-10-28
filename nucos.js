@@ -990,9 +990,9 @@ define(function Nucos() {
             var unitMap = _FindUnitTypes();
             if (unitMap[fromUnit] !== unitMap[toUnit]){
                 if (unitMap[fromUnit] === "Volume" && unitMap[toUnit] === "Mass"){
-                    return this.ToMass(fromAmount, fromUnit, Density, DensityUnits, toUnit);
+                    return ToMass(fromAmount, fromUnit, Density, DensityUnits, toUnit);
                 } else if (unitMap[fromUnit] === "Mass" && unitMap[toUnit] === "Volume"){
-                    return this.ToVolume(fromAmount, fromUnit, Density, DensityUnits, toUnit);
+                    return ToVolume(fromAmount, fromUnit, Density, DensityUnits, toUnit);
                 }
             } else {
                 return convert(unitMap[fromUnit], fromUnit, toUnit, fromAmount);
