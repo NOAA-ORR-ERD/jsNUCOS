@@ -1,4 +1,4 @@
-function Nucos() {
+define(function Nucos() {
     var unitDict = {
         "Temperature": {
             "Fahrenheit": [
@@ -892,12 +892,10 @@ function Nucos() {
         // ['degrees', ((1.0, 273.16), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
         
         var dataDict = [];
-        for (var unitType in UnitsDict){
-            for(var unitTerm in UnitsDict[unitType]){
-                dataDict.push([unitTerm, UnitsDict[unitType][unitTerm]]);
-            }
+        for (var unitTerm in UnitsDict){
+            dataDict.push([unitTerm, UnitsDict[unitTerm]]);
         }
-
+        
         for(var dataset in dataDict){
             var primaryName = dataDict[dataset][0];
             var data = dataDict[dataset][1];
@@ -936,6 +934,8 @@ function Nucos() {
         var value = Value;
         var toVal;
 
+        toUnit = this.Synonyms[toUnit];
+        fromUnit = this.Synonyms[fromUnit];
         if (fromUnit === "apidegree"){
             value = 141.5 / (value + 131.5);
             fromUnit = "specificgravity(15\xb0c)";
@@ -951,16 +951,19 @@ function Nucos() {
     // loop through the UnitsDict to construct the a per term value and synomym set.
     // ['degrees', ((1.0, 273.16), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
     var Converters = {};
+    var dataDict = [];
 
     for (var unitType in unitDict){
-        for(var unitTerm in unitDict[unitType]){
-            var dataDict = [];
-            dataDict.push([unitTerm, unitDict[unitType][unitTerm]]);
-        }
+        dataDict.push([unitType, unitDict[unitType]]);
+    }
+
+    for (var dataset in dataDict){
+        var unitType = dataDict[dataset][0];
+        var data = dataDict[dataset][1];
         if (unitType.toLowerCase() === "density"){
-            Converters["density"] = new DensityConverterClass(unitType, dataDict);
+            Converters["density"] = new DensityConverterClass(unitType, data);
         } else {
-            Converters[_Simplify(unitType)] = new ConverterClass(unitType, dataDict);
+            Converters[_Simplify(unitType)] = new ConverterClass(unitType, data);
         }
     }
     // for(var dataset in dataDict){
@@ -1017,23 +1020,16 @@ function Nucos() {
         };
     };
 
-    return {
+    var nucosObj = {
         _Simplify: _Simplify,
         _GetUnitTypes: _GetUnitTypes,
         OilQuantityConverter: OilQuantityConverter,
-        convert: convert,
-        DensityConverterClass: DensityConverterClass
+        convert: convert
     };
-}
+    return nucosObj;
+});
 
-var moo = new Nucos();
 
-OilConverter = new moo.OilQuantityConverter();
-var densityConverter = new moo.DensityConverterClass();
-console.log(densityConverter);
-// console.log('Volume Test: ' + moo.convert('Volume', 'gal', 'cubic meter', 200));
-console.log(moo.convert("Density", "api", "kg/m^3", 10));
-console.log(OilConverter.ToVolume(50, "ton", 10, "API degree", "cubic meter"));
 
 
 
