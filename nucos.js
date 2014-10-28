@@ -966,11 +966,6 @@ define(function Nucos() {
             Converters[_Simplify(unitType)] = new ConverterClass(unitType, data);
         }
     }
-    // for(var dataset in dataDict){
-    //     var primaryName = dataDict[dataset][0];
-    //     var data = dataDict[dataset][1];
-        
-    // }
 
     var convert = function(UnitType, FromUnit, ToUnit, Value){
         var unitType = _Simplify(UnitType);
@@ -983,6 +978,26 @@ define(function Nucos() {
     * requires density info as well
     **/
     var OilQuantityConverter = function(){
+
+        /**
+        * @param fromAmount: The amount of the substance you are converting from
+        * @param fromUnit: The unit of the amount you are converting from
+        * @param Density: The density of the substance you are converting
+        * @param DensityUnits: The units of the density the user provided
+        * @param toUnit: The units the user would like to see the amount returned in
+        **/
+        var toConvert = function(fromAmount, fromUnit, Density, DensityUnits, toUnit){
+            var unitMap = _FindUnitTypes();
+            if (unitMap[fromUnit] !== unitMap[toUnit]){
+                if (unitMap[fromUnit] === "Volume" && unitMap[toUnit] === "Mass"){
+                    return this.ToMass(fromAmount, fromUnit, Density, DensityUnits, toUnit);
+                } else if (unitMap[fromUnit] === "Mass" && unitMap[toUnit] === "Volume"){
+                    return this.ToVolume(fromAmount, fromUnit, Density, DensityUnits, toUnit);
+                }
+            } else {
+                return convert(unitMap[fromUnit], fromUnit, toUnit, fromAmount);
+            }
+        };
 
         /**
          * @param Mass: mass you want converted to volume
@@ -1015,8 +1030,7 @@ define(function Nucos() {
         };
 
         return {
-            ToVolume: ToVolume,
-            ToMass: ToMass
+            toConvert: toConvert
         };
     };
 
@@ -1028,6 +1042,7 @@ define(function Nucos() {
     };
     return nucosObj;
 });
+
 
 
 
