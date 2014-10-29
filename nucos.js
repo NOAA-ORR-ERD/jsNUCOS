@@ -985,7 +985,7 @@ define(function Nucos() {
         * @param DensityUnits: The units of the density the user provided
         * @param toUnit: The units the user would like to see the amount returned in
         **/
-        var toConvert = function(fromAmount, fromUnit, Density, DensityUnits, toUnit){
+        var Convert = function(fromAmount, fromUnit, Density, DensityUnits, toUnit){
             var unitMap = _FindUnitTypes();
             if (unitMap[fromUnit] !== unitMap[toUnit]){
                 if (unitMap[fromUnit] === "Volume" && unitMap[toUnit] === "Mass"){
@@ -1029,7 +1029,7 @@ define(function Nucos() {
         };
 
         return {
-            toConvert: toConvert
+            Convert: Convert
         };
     };
 
