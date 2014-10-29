@@ -922,31 +922,30 @@ define(function Nucos() {
     
     var DensityConverterClass = function(TypeName, UnitsDict){
         ConverterClass.call(this, TypeName, UnitsDict);
+        this.Convert = function(FromUnit, ToUnit, Value){
+            var fromUnit = _Simplify(FromUnit);
+            var toUnit = _Simplify(ToUnit);
+            var value = Value;
+            var toVal;
+
+            toUnit = this.Synonyms[toUnit];
+            fromUnit = this.Synonyms[fromUnit];
+            if (fromUnit === "apidegree"){
+                value = 141.5 / (value + 131.5);
+                fromUnit = "specificgravity(15\xb0c)";
+            }
+            if (toUnit === "apidegree"){
+                toVal = 141.5 / (value * this.Convertdata[fromUnit] / this.Convertdata["specificgravity(15\xb0c)"]) - 131.5;
+            } else {
+                toVal = value * this.Convertdata[fromUnit] / this.Convertdata[toUnit];
+            }
+            return toVal;
+        };
     };
 
     DensityConverterClass.prototype = Object.create(ConverterClass.prototype);
 
     DensityConverterClass.prototype.constructor = DensityConverterClass;
-
-    DensityConverterClass.prototype.Convert = function(FromUnit, ToUnit, Value){
-        var fromUnit = _Simplify(FromUnit);
-        var toUnit = _Simplify(ToUnit);
-        var value = Value;
-        var toVal;
-
-        toUnit = this.Synonyms[toUnit];
-        fromUnit = this.Synonyms[fromUnit];
-        if (fromUnit === "apidegree"){
-            value = 141.5 / (value + 131.5);
-            fromUnit = "specificgravity(15\xb0c)";
-        }
-        if (toUnit === "apidegree"){
-            toVal = 141.5 / (value * this.Convertdata[fromUnit] / this.Convertdata["specificgravity(15\xb0c)"]) - 131.5;
-        } else {
-            toVal = value * this.Convertdata[fromUnit] / this.Convertdata[toUnit];
-        }
-        return toVal;
-    };
 
     // loop through the UnitsDict to construct the a per term value and synomym set.
     // ['degrees', ((1.0, 273.16), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
@@ -1038,10 +1037,12 @@ define(function Nucos() {
         _Simplify: _Simplify,
         _GetUnitTypes: _GetUnitTypes,
         OilQuantityConverter: OilQuantityConverter,
+        Converters: Converters,
         convert: convert
     };
     return nucosObj;
 });
+
 
 
 
