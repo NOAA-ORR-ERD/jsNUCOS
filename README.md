@@ -7,25 +7,25 @@ Basic Usage
 ===
 
 ###Convert when the unit types are the same:
-```javascript
+```
 nucos.convert(unitType, fromUnit, toUnit, value)
 ```
 Example:
-```javascript
+```
 nucos.convert("Density", "API degree", "kg/m^3", 10)
 ```
 ###Convert between different quantities (volume and mass)
 
-* Instantiate the OilQuantityConverter off of nucos
-  ```javascript
+  Instantiate the OilQuantityConverter off of nucos
+  ```
   var oilConverter = new nucos.OilQuantityConverter();
   ```
-* Use the Convert method off of the OilQuantityConverter class
-  ```javascript
+  Use the Convert method off of the OilQuantityConverter class
+  ```
   oilConverter.Convert(fromAmount, fromUnit, Density, DensityUnits, toUnit);
   ```
   Example with inputs:
-  ```javascript
+  ```
   oilConverter.Convert(50, "tons", 10, "API degree", "cubic meters");
   ```
 
