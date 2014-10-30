@@ -1,10 +1,9 @@
-Nucos (NOAA Unit Conversion for Oil Spills)
-===
+#Nucos (NOAA Unit Conversion for Oil Spills)
 
 Used for converting temperature, volume, and mass.
 
-Basic Usage
-===
+##Basic Usage
+
 
 ###Convert when the unit types are the same:
 ```
