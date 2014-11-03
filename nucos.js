@@ -947,6 +947,30 @@ define(function Nucos() {
 
     DensityConverterClass.prototype.constructor = DensityConverterClass;
 
+    var TempConverterClass = function(TypeName, UnitsDict){
+        ConverterClass.call(this, TypeName, UnitsDict);
+        this.Convert = function(FromUnit, ToUnit, Value){
+            var fromUnit = _Simplify(FromUnit);
+            var toUnit = _Simplify(ToUnit);
+
+            fromUnit = this.Synonyms[fromUnit];
+            toUnit = this.Synonyms[toUnit];
+
+            var a1 = this.Convertdata[fromUnit][0];
+            var b1 = this.Convertdata[fromUnit][1];
+            var a2 = this.Convertdata[toUnit][0];
+            var b2 = this.Convertdata[toUnit][1];
+
+            var toVal = ((Value + b1) * a1 / a2) - b2;
+
+            return toVal;
+        };
+    };
+
+    TempConverterClass.prototype = Object.create(ConverterClass.prototype);
+
+    TempConverterClass.prototype.constructor = TempConverterClass;
+
     // loop through the UnitsDict to construct the a per term value and synomym set.
     // ['degrees', ((1.0, 273.16), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
     var Converters = {};
@@ -961,6 +985,8 @@ define(function Nucos() {
         var data = dataDict[dataset][1];
         if (unitType.toLowerCase() === "density"){
             Converters["density"] = new DensityConverterClass(unitType, data);
+        } else if (unitType.toLowerCase() === "temperature"){
+            Converters["temperature"] = new TempConverterClass(unitType, data);
         } else {
             Converters[_Simplify(unitType)] = new ConverterClass(unitType, data);
         }
@@ -1042,8 +1068,6 @@ define(function Nucos() {
     };
     return nucosObj;
 });
-
-
 
 
 
