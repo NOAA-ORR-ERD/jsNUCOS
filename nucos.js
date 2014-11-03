@@ -208,6 +208,9 @@ define(function Nucos() {
                     "latitudeminutes"
                 ]
             ],
+            "latitude seconds": [
+
+            ],
             "meter": [
                 1.0,
                 [
@@ -785,6 +788,11 @@ define(function Nucos() {
             ]
         }
     };
+
+
+    var sexagesimalPattern = {
+            value: /^([0-9]{1,3})°\s*([0-9]{1,3}(?:\.(?:[0-9]{1,2}))?)'\s*(([0-9]{1,3}(\.([0-9]{1,2}))?)"\s*)?([NEOSW]?)$/
+        };
 
     /**
     * 
