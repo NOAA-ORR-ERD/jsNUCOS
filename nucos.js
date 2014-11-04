@@ -208,8 +208,23 @@ define(function Nucos() {
                     "latitudeminutes"
                 ]
             ],
-            "latitude seconds": [
-
+            "latitude second": [
+                30.87,
+                [
+                    "latitudeseconds"
+                ]
+            ],
+            "longitude minute": [
+                1607.0,
+                [
+                    "longitudeminutes"
+                ]
+            ],
+            "longitude second":[
+                26.78,
+                [
+                    "longitudeseconds"
+                ]
             ],
             "meter": [
                 1.0,
@@ -251,6 +266,12 @@ define(function Nucos() {
                 111120.0,
                 [
                     "latitudedegrees"
+                ]
+            ],
+            "longitude degree": [
+                96420.0,
+                [
+                    "longitudedegrees"
                 ]
             ],
             "nautical mile": [
@@ -795,6 +816,27 @@ define(function Nucos() {
         };
 
     /**
+     * @param str String that is parsed to determine the decimal degree value
+     * @return The decimal degree amount
+    **/
+    var sexagesimal2decimal = function(str){
+        var regEx = new RegExp(sexagesimalPattern.value);
+        var data = regEx.exec(str);
+        var min = 0, sec = 0;
+
+        if (data){
+            min = parseFloat(data[2]/60);
+            sec = parseFloat(data[4]/3600) || 0;
+        }
+
+        var dec = ((parseFloat(data[1]) + min + sec)).toFixed(8);
+
+        dec = (data[7] == 'S' || data[7] == 'W') ? parseFloat(-dec) : parseFloat(dec);
+
+        return dec;
+    };
+
+    /**
     * 
     * @param str String that is manipulated
     * @return The string with the whitespace and capitalization removed
@@ -1072,10 +1114,12 @@ define(function Nucos() {
         _GetUnitTypes: _GetUnitTypes,
         OilQuantityConverter: OilQuantityConverter,
         Converters: Converters,
-        convert: convert
+        convert: convert,
+        sexagesimal2decimal: sexagesimal2decimal
     };
     return nucosObj;
 });
+
 
 
 
