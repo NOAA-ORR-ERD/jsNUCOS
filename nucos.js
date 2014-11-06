@@ -1048,6 +1048,8 @@ define(function Nucos() {
         return Converter.Convert(FromUnit, ToUnit, Value);
     };
 
+    var unitMap = _FindUnitTypes();
+
     /**
     * class for Oil Quantity conversion -- mass to/from Volume
     * requires density info as well
@@ -1062,7 +1064,6 @@ define(function Nucos() {
         * @param toUnit: The units the user would like to see the amount returned in
         **/
         var Convert = function(fromAmount, fromUnit, Density, DensityUnits, toUnit){
-            var unitMap = _FindUnitTypes();
             if (unitMap[fromUnit] !== unitMap[toUnit]){
                 if (unitMap[fromUnit] === "Volume" && unitMap[toUnit] === "Mass"){
                     return ToMass(fromAmount, fromUnit, Density, DensityUnits, toUnit);
