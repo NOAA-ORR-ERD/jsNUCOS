@@ -837,6 +837,15 @@ define(function Nucos() {
     };
 
     /**
+     * @param thickness The initial thickness of the oil immediately preceding the burn
+     * @param waterFract The emulsion water fraction value associated with the burned oil
+     * @return The time duration in seconds for how long the burn will take to complete
+    **/
+    var _BurnDuration = function(thickness, waterFract){
+        return (thickness - 0.002) / (0.000058 * (1 - waterFract));
+    };
+
+    /**
     * 
     * @param str String that is manipulated
     * @return The string with the whitespace and capitalization removed
@@ -1116,7 +1125,8 @@ define(function Nucos() {
         OilQuantityConverter: OilQuantityConverter,
         Converters: Converters,
         convert: convert,
-        sexagesimal2decimal: sexagesimal2decimal
+        sexagesimal2decimal: sexagesimal2decimal,
+        _BurnDuration: _BurnDuration
     };
     return nucosObj;
 });
