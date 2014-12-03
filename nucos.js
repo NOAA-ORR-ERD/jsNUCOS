@@ -837,8 +837,10 @@ define(function Nucos() {
     };
 
     /**
-     * @param thickness The initial thickness of the oil immediately preceding the burn
-     * @param waterFract The emulsion water fraction value associated with the burned oil
+     * Method used to calculate the total duration of an in-situ burn
+     * 
+     * @param thickness The initial thickness of the oil immediately preceding the burn in meters
+     * @param waterFract The emulsion water fraction value associated with the burned oil between 0 and 1
      * @return The time duration in seconds for how long the burn will take to complete
     **/
     var _BurnDuration = function(thickness, waterFract){
