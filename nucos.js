@@ -1121,6 +1121,39 @@ define(function Nucos() {
         };
     };
 
+    var rayleighDist = function(){
+
+        var rayleigh_sigma_from_wind = function(avg_speed){
+            return Math.sqrt(2.0 / Math.PI) * avg_speed;
+        };
+
+        var rayleigh_pdf = function(x, sigma){
+            var exponentForE = (-1.0 / 2.0) * (Math.pow(x, 2) / Math.pow(sigma, 2.0));
+            return (x / Math.pow(sigma, 2) * Math.pow(Math.E, exponentForE));
+        };
+
+        var rayleigh_cdf = function(x, sigma){
+            var exponentForE = (-1.0 / 2.0) * (Math.pow(x, 2) / Math.pow(sigma, 2.0));
+            return 1.0 - Math.pow(Math.E, exponentForE);
+        };
+
+        var rayleigh_quantile = function(f, sigma){
+            return (sigma * Math.sqrt((-1.0 * Math.log(Math.pow((1.0 - f), 2)))));
+        };
+
+        var rangeFinder = function(avg_speed, uncertainty){
+            var sigma = rayleigh_sigma_from_wind(avg_speed);
+            var low = rayleigh_quantile(0.5 - (uncertainty / 2.0), sigma);
+            var high = rayleigh_quantile(0.5 + (uncertainty / 2.0), sigma);
+            return {"low": low, "high": high};
+        };
+
+        return {
+            rangeFinder: rangeFinder
+        };
+
+    };
+
     var nucosObj = {
         _Simplify: _Simplify,
         _GetUnitTypes: _GetUnitTypes,
@@ -1128,10 +1161,12 @@ define(function Nucos() {
         Converters: Converters,
         convert: convert,
         sexagesimal2decimal: sexagesimal2decimal,
-        _BurnDuration: _BurnDuration
+        _BurnDuration: _BurnDuration,
+        rayleighDist: rayleighDist
     };
     return nucosObj;
 });
+
 
 
 
