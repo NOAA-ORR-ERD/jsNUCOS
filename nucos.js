@@ -1143,8 +1143,8 @@ define(function Nucos() {
 
         var rangeFinder = function(avg_speed, uncertainty){
             var sigma = rayleigh_sigma_from_wind(avg_speed);
-            var low = rayleigh_quantile(0.5 - (uncertainty / 2.0), sigma);
-            var high = rayleigh_quantile(0.5 + (uncertainty / 2.0), sigma);
+            var low = rayleigh_quantile(0.5 - uncertainty, sigma);
+            var high = rayleigh_quantile(0.5 + uncertainty, sigma);
             return {"low": low, "high": high};
         };
 
