@@ -1121,6 +1121,33 @@ define(function Nucos() {
         };
     };
 
+    var waterDensity = function(){
+
+        var calcRho = function(temp){
+            var rho;
+            rho = 1000 * (1.0 - (temp + 288.9414) / (508929.2 * (temp + 68.12963)) * (Math.pow(temp - 3.9863, 2)));
+            return rho;
+        };
+
+        var calcRhos = function(rho, conc, temp){
+            var rhos, coeffA, coeffB;
+            coeffA = 0.824493 - 0.0040899 * temp + 0.000076438 * Math.pow(temp,2) - 0.00000082467 * Math.pow(temp,3) + 0.0000000053675 * Math.pow(temp,4);
+            coeffB = -0.005724 + 0.00010227 * temp - 0.0000016546 * Math.pow(temp,2);
+            rhos = rho + A * conc + B * Math.pow(conc, (3/2)) + 0.00048314 * Math.pow(conc, 2);
+            return rhos;
+        };
+
+        var calcDensity = function(temp, conc){
+            var rho = calcRho(temp);
+            var rhos = calcRhos(rho, conc, temp);
+            return rhos;
+        };
+
+        return {
+            calcDensity: calcDensity
+        };
+    };
+
     var rayleighDist = function(){
 
         var rayleigh_sigma_from_wind = function(avg_speed){
@@ -1162,7 +1189,8 @@ define(function Nucos() {
         convert: convert,
         sexagesimal2decimal: sexagesimal2decimal,
         _BurnDuration: _BurnDuration,
-        rayleighDist: rayleighDist
+        rayleighDist: rayleighDist,
+        waterDensity: waterDensity
     };
     return nucosObj;
 });
