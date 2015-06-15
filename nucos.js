@@ -1133,7 +1133,7 @@ define(function Nucos() {
             var rhos, coeffA, coeffB;
             coeffA = 0.824493 - 0.0040899 * temp + 0.000076438 * Math.pow(temp,2) - 0.00000082467 * Math.pow(temp,3) + 0.0000000053675 * Math.pow(temp,4);
             coeffB = -0.005724 + 0.00010227 * temp - 0.0000016546 * Math.pow(temp,2);
-            rhos = rho + A * conc + B * Math.pow(conc, (3/2)) + 0.00048314 * Math.pow(conc, 2);
+            rhos = rho + coeffA * conc + coeffB * Math.pow(conc, (3/2)) + 0.00048314 * Math.pow(conc, 2);
             return rhos;
         };
 
@@ -1194,7 +1194,6 @@ define(function Nucos() {
     };
     return nucosObj;
 });
-
 
 
 
