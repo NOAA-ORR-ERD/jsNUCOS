@@ -1,4 +1,12 @@
-define(function Nucos() {
+(function (root, factory) {
+    if(typeof define === "function" && define.amd) {
+        define([], factory);
+    } else if(typeof module === "object" && module.exports) {
+        module.exports = factory();
+    } else {
+        root.nucos = factory();
+    }
+}(this, function() {
     var unitDict = {
         "Temperature": {
             "Fahrenheit": [
@@ -1181,7 +1189,7 @@ define(function Nucos() {
 
     };
 
-    var nucosObj = {
+    var nucos = {
         _Simplify: _Simplify,
         _GetUnitTypes: _GetUnitTypes,
         OilQuantityConverter: OilQuantityConverter,
@@ -1192,14 +1200,6 @@ define(function Nucos() {
         rayleighDist: rayleighDist,
         waterDensity: waterDensity
     };
-    return nucosObj;
-});
-
-
-
-
-
-
-
-
+    return nucos;
+}));
 
