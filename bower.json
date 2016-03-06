@@ -10,7 +10,7 @@
   "main": "nucos.js",
   "moduleType": [
     "amd",
-    "commonjs"
+    "commonjs",
     "bowser"
   ],
   "keywords": [
