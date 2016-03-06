@@ -1,0 +1,35 @@
+{
+  "name": "nucos",
+  "version": "1.0.0",
+  "description": "NOAA Unit Conversion for Oil Spills",
+  "main": "nucos.js",
+  "scripts": {
+    "test": "mocha tests/tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NOAA-ORR-ERD/NUCOS.git"
+  },
+  "keywords": [
+    "unit",
+    "converter",
+    "NOAA",
+    "oil",
+    "spill",
+    "mass",
+    "volume",
+    "latitude",
+    "longitude",
+    "quantity"
+  ],
+  "author": "Alex Miranda <alex.miranda@noaa.gov>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NOAA-ORR-ERD/NUCOS/issues"
+  },
+  "homepage": "https://github.com/NOAA-ORR-ERD/NUCOS#readme",
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "requirejs": "^2.1.22"
+  }
+}
