@@ -1,6 +1,6 @@
 {
   "name": "nucos",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "NOAA Unit Conversion for Oil Spills",
   "main": "nucos.js",
   "scripts": {

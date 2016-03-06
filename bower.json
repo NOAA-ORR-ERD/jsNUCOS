@@ -1,14 +1,17 @@
 {
   "name": "nucos",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "homepage": "https://github.com/NOAA-ORR-ERD/NUCOS",
   "authors": [
-    "Alexander Miranda <alex.miranda@noaa.gov>"
+    "Alexander Miranda <alex.miranda@noaa.gov>",
+    "Nathan Wilkins <nathan.wilkins@noaa.gov>"
   ],
   "description": "Unit conversion library",
   "main": "nucos.js",
   "moduleType": [
-    "amd"
+    "amd",
+    "commonjs"
+    "bowser"
   ],
   "keywords": [
     "unit",
