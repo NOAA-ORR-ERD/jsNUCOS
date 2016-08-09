@@ -38,6 +38,14 @@ describe('nucos.sexagesimal2decimal', function(){
         assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
         assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
     });
+
+    it('should convert degress w/ decimal minutes', function(){
+        var lon = "24 43.16";
+        var lat = "58 44.43";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), 24.71933333);
+        assert.equal(nucos.sexagesimal2decimal(lat), 58.7405);
+    });
 });
 
 describe('nucos.convert', function(){
