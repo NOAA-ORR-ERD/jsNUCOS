@@ -828,6 +828,12 @@
      * @return The decimal degree amount
     **/
     var sexagesimal2decimal = function(str){
+        str = str.trim();
+        var decimalReg = new RegExp(/^[\-]?\d*.\d*$/);
+        if(decimalReg.exec(str) !== null){
+            return parseFloat(str);
+        }
+
         var regEx = new RegExp(sexagesimalPattern.value);
         var data = regEx.exec(str);
         var min = 0, sec = 0;

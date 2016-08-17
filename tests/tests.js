@@ -46,6 +46,22 @@ describe('nucos.sexagesimal2decimal', function(){
         assert.equal(nucos.sexagesimal2decimal(lon), 24.71933333);
         assert.equal(nucos.sexagesimal2decimal(lat), 58.7405);
     });
+
+    it('should leave decimals alone', function(){
+        var lon = "43.23423";
+        var lat = "-124.2334";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), 43.23423);
+        assert.equal(nucos.sexagesimal2decimal(lat), -124.2334);
+    });
+
+    it('should sanitize leading and trailing spaces', function(){
+        var lon = " 43.23423 ";
+        var lat = " -124.2334 ";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), 43.23423);
+        assert.equal(nucos.sexagesimal2decimal(lat), -124.2334);
+    });
 });
 
 describe('nucos.convert', function(){
