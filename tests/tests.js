@@ -62,6 +62,14 @@ describe('nucos.sexagesimal2decimal', function(){
         assert.equal(nucos.sexagesimal2decimal(lon), 43.23423);
         assert.equal(nucos.sexagesimal2decimal(lat), -124.2334);
     });
+
+    it('should not choke on cardinal directions with a decimal', function(){
+        var lon = "43.23423 N";
+        var lat = "-124.2334 W";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), 43.23423);
+        assert.equal(nucos.sexagesimal2decimal(lat), -124.2334);
+    });
 });
 
 describe('nucos.convert', function(){

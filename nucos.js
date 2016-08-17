@@ -829,8 +829,9 @@
     **/
     var sexagesimal2decimal = function(str){
         str = str.trim();
-        var decimalReg = new RegExp(/^[\-]?\d*.\d*$/);
-        if(decimalReg.exec(str) !== null){
+        var decimalReg = new RegExp(/^[\-]?\d*.\d* ?[WNSE]?$/);
+        var decData = decimalReg.exec(str);
+        if(decData){
             return parseFloat(str);
         }
 
