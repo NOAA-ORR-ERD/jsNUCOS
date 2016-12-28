@@ -12,7 +12,7 @@
             "Fahrenheit": [
                 [
                     0.5555555555555556,
-                    459.68800000000005
+                    459.66999999999996
                 ],
                 [
                     "F",
@@ -39,7 +39,7 @@
             "Celsius": [
                 [
                     1.0,
-                    273.16
+                    273.15
                 ],
                 [
                     "C",
@@ -853,7 +853,7 @@
 
     /**
      * Method used to calculate the total duration of an in-situ burn
-     * 
+     *
      * @param thickness The initial thickness of the oil immediately preceding the burn in meters
      * @param waterFract The emulsion water fraction value associated with the burned oil between 0 and 1
      * @return The time duration in seconds for how long the burn will take to complete
@@ -863,7 +863,7 @@
     };
 
     /**
-    * 
+    *
     * @param str String that is manipulated
     * @return The string with the whitespace and capitalization removed
     **/
@@ -962,29 +962,29 @@
         this.Name = TypeName;
         this.Synonyms = {};
         this.Convertdata = {};
-        
-        
+
+
         // loop through the UnitsDict to construct the a per term value and synomym set.
-        // ['degrees', ((1.0, 273.16), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
-        
+        // ['degrees', ((1.0, 273.15), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
+
         var dataDict = [];
         for (var unitTerm in UnitsDict){
             dataDict.push([unitTerm, UnitsDict[unitTerm]]);
         }
-        
+
         for(var dataset in dataDict){
             var primaryName = dataDict[dataset][0];
             var data = dataDict[dataset][1];
-        
+
             var pname = _Simplify(primaryName);
             this.Convertdata[pname] = data[0];
             this.Synonyms[pname] = pname;
-        
+
             for (var synonym in data[1]){
                 this.Synonyms[_Simplify(data[1][synonym])] = pname;
             }
         }
-        
+
         this.Convert = function(FromUnit, ToUnit, Value){
             var fromUnit = _Simplify(FromUnit);
             var toUnit = _Simplify(ToUnit);
@@ -995,7 +995,7 @@
             return value * this.Convertdata[fromUnit] / this.Convertdata[toUnit];
         };
     };
-    
+
     var DensityConverterClass = function(TypeName, UnitsDict){
         ConverterClass.call(this, TypeName, UnitsDict);
         this.Convert = function(FromUnit, ToUnit, Value){
@@ -1048,7 +1048,7 @@
     TempConverterClass.prototype.constructor = TempConverterClass;
 
     // loop through the UnitsDict to construct the a per term value and synomym set.
-    // ['degrees', ((1.0, 273.16), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
+    // ['degrees', ((1.0, 273.15), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
     var Converters = {};
     var dataDict = [];
 
