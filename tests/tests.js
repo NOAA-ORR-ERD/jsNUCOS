@@ -39,6 +39,14 @@ describe('nucos.sexagesimal2decimal', function(){
         assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
     });
 
+    it('should convert to a negative w/ w and s', function(){
+        var lon = "24° 43' 30.16\"w";
+        var lat = "58° 44' 43.97\"s";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
+        assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    });
+
     it('should convert degress w/ decimal minutes', function(){
         var lon = "24 43.16";
         var lat = "58 44.43";
