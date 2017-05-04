@@ -820,7 +820,7 @@
 
 
     var sexagesimalPattern = {
-            value: /^([0-9]{1,3})\°*\s*([0-9]{1,3}(?:\.(?:[0-9]{1,2}))?)\'*\s*(([0-9]{1,3}(\.([0-9]{1,2}))?)\"*\s*)?([NEOSW]?)$/
+            value: /^([0-9]{1,3})\°*\s*([0-9]{1,3}(?:\.*(?:[0-9]{1,2}))?)\'*\s*(([0-9]{1,3}(\.([0-9]{1,2}))?)\"*\s*)?([NEOSW]?)$/
         };
 
     /**
@@ -829,7 +829,7 @@
     **/
     var sexagesimal2decimal = function(str){
         str = str.trim();
-        var decimalReg = new RegExp(/^[\-]?\d*.\d* ?[WNSE]?$/);
+        var decimalReg = new RegExp(/^[\-]?\d*\.\d* ?[WNSE]?$/);
         var decData = decimalReg.exec(str);
         if(decData){
             return parseFloat(str);

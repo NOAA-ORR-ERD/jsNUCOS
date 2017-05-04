@@ -47,6 +47,14 @@ describe('nucos.sexagesimal2decimal', function(){
         assert.equal(nucos.sexagesimal2decimal(lat), 58.7405);
     });
 
+    it('should convert degrees w/ just degree minutes, no decimal', function(){
+        var lon = "24 43";
+        var lat = "58 44";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), 24.71666667);
+        assert.equal(nucos.sexagesimal2decimal(lat), 58.73333333);
+    });
+
     it('should leave decimals alone', function(){
         var lon = "43.23423";
         var lat = "-124.2334";
