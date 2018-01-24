@@ -8,814 +8,846 @@
     }
 }(this, function() {
     var unitDict = {
-        "Temperature": {
-            "Fahrenheit": [
-                [
-                    0.5555555555555556,
-                    459.66999999999996
-                ],
-                [
-                    "F",
-                    "degrees f",
-                    "degree f",
-                    "degrees fahrenheit",
-                    "deg f"
-                ]
+          "Temperature":{
+            "Fahrenheit":[
+              [
+                0.5555555555555556,
+                459.66999999999996
+              ],
+              [
+                "F",
+                "degrees f",
+                "degree f",
+                "degrees fahrenheit",
+                "deg f"
+              ]
             ],
-            "Kelvin": [
-                [
-                    1.0,
-                    0.0
-                ],
-                [
-                    "K",
-                    "degrees k",
-                    "degree k",
-                    "degrees kelvin",
-                    "degree kelvin",
-                    "deg k"
-                ]
+            "Kelvin":[
+              [
+                1.0,
+                0.0
+              ],
+              [
+                "K",
+                "degrees k",
+                "degree k",
+                "degrees kelvin",
+                "degree kelvin",
+                "deg k"
+              ]
             ],
-            "Celsius": [
-                [
-                    1.0,
-                    273.15
-                ],
-                [
-                    "C",
-                    "degrees c",
-                    "degrees celsius",
-                    "deg c",
-                    "centigrade"
-                ]
+            "Celsius":[
+              [
+                1.0,
+                273.15
+              ],
+              [
+                "C",
+                "degrees c",
+                "degrees celsius",
+                "deg c",
+                "centigrade"
+              ]
             ]
-        },
-        "Area": {
-            "square yard": [
-                0.83612736,
-                [
-                    "sq yards",
-                    "squareyards"
-                ]
+          },
+          "Area":{
+            "square yard":[
+              0.83612736,
+              [
+                "sq yards",
+                "squareyards"
+              ]
             ],
-            "square foot": [
-                0.09290304,
-                [
-                    "ft^2",
-                    "sq foot",
-                    "square feet"
-                ]
+            "square foot":[
+              0.09290304,
+              [
+                "ft^2",
+                "ft\u00b2",
+                "sq foot",
+                "square feet"
+              ]
             ],
-            "square meter": [
-                1.0,
-                [
-                    "m^2",
-                    "sq m"
-                ]
+            "square meter":[
+              1.0,
+              [
+                "m^2",
+                "m\u00b2",
+                "sq m"
+              ]
             ],
-            "square kilometer": [
-                1000000.0,
-                [
-                    "km^2",
-                    "sq km"
-                ]
+            "square kilometer":[
+              1000000.0,
+              [
+                "km^2",
+                "km\u00b2",
+                "sq km"
+              ]
             ],
-            "acre": [
-                4046.8564,
-                [
-                    "acres"
-                ]
+            "acre":[
+              4046.8564,
+              [
+                "acres"
+              ]
             ],
-            "square centimeter": [
-                0.0001,
-                [
-                    "cm^2",
-                    "sq cm"
-                ]
+            "square centimeter":[
+              0.0001,
+              [
+                "cm^2",
+                "cm\u00b2",
+                "sq cm"
+              ]
             ],
-            "hectare": [
-                10000.0,
-                [
-                    "hectares",
-                    "ha"
-                ]
+            "hectare":[
+              10000.0,
+              [
+                "hectares",
+                "ha"
+              ]
             ],
-            "square mile": [
-                2589988.1,
-                [
-                    "sq miles"
-                ]
+            "square mile":[
+              2589988.1,
+              [
+                "sq miles"
+              ]
             ],
-            "square inch": [
-                0.00064516,
-                [
-                    "in^2",
-                    "sq inch",
-                    "square inches"
-                ]
+            "square inch":[
+              0.00064516,
+              [
+                "in^2",
+                "in\u00b2",
+                "sq inch",
+                "square inches"
+              ]
             ],
-            "square nautical mile": [
-                3429904,
-                [
-                    "sq nm",
-                    "nm^2"
-                ]
+            "square nautical mile":[
+              3429904,
+              [
+                "sq nm",
+                "nm^2",
+                "nm\u00b2"
+              ]
             ]
-        },
-        "Discharge": {
-            "gallon per minute": [
-                6.3090197e-05,
-                [
-                    "gal/min",
-                    "gpm"
-                ]
+          },
+          "Discharge":{
+            "gallon per minute":[
+              6.3090197e-05,
+              [
+                "gal/min",
+                "gpm"
+              ]
             ],
-            "barrel per hour": [
-                4.4163138888888885e-05,
-                [
-                    "bbl/hr"
-                ]
+            "barrel per hour":[
+              4.4163138888888885e-05,
+              [
+                "bbl/hr"
+              ]
             ],
-            "cubic meter per hour": [
-                0.0002777777777777778,
-                [
-                    "m^3/hr"
-                ]
+            "cubic meter per hour":[
+              0.0002777777777777778,
+              [
+                "m^3/hr",
+                "m\u00b3/hr"
+              ]
             ],
-            "gallon per hour": [
-                1.0515032833333335e-06,
-                [
-                    "gal/hr"
-                ]
+            "gallon per hour":[
+              1.0515032833333335e-06,
+              [
+                "gal/hr"
+              ]
             ],
-            "cubic foot per minute": [
-                0.00047194744,
-                [
-                    "ft^3/min"
-                ]
+            "cubic foot per minute":[
+              0.00047194744,
+              [
+                "ft^3/min",
+                "ft\u00b3/min"
+              ]
             ],
-            "barrel per day": [
-                1.84013078e-06,
-                [
-                    "bbl/day"
-                ]
+            "barrel per day":[
+              1.84013078e-06,
+              [
+                "bbl/day"
+              ]
             ],
-            "cubic meter per second": [
-                1.0,
-                [
-                    "m^3/s",
-                    "cu m/s",
-                    "cms"
-                ]
+            "cubic meter per second":[
+              1.0,
+              [
+                "m^3/s",
+                "m\u00b3/s",
+                "cu m/s",
+                "cms"
+              ]
             ],
-            "liter per second": [
-                0.001,
-                [
-                    "l/s",
-                    "lps"
-                ]
+            "liter per second":[
+              0.001,
+              [
+                "l/s",
+                "lps"
+              ]
             ],
-            "liter per minute": [
-                1.6666666666666667e-05,
-                [
-                    "l/min"
-                ]
+            "liter per minute":[
+              1.6666666666666667e-05,
+              [
+                "l/min"
+              ]
             ],
-            "cubic foot per second": [
-                0.02831685,
-                [
-                    "cfs",
-                    "cu feet/s",
-                    "feet^3/s"
-                ]
+            "cubic foot per second":[
+              0.02831685,
+              [
+                "cfs",
+                "cu feet/s",
+                "feet^3/s",
+                "ft\u00b3/s"
+              ]
             ],
-            "gallon per second": [
-                0.0037854118,
-                [
-                    "gal/s",
-                    "gal/sec"
-                ]
+            "gallon per second":[
+              0.0037854118,
+              [
+                "gal/s",
+                "gal/sec"
+              ]
             ],
-            "gallon per day": [
-                4.3812636805555563e-08,
-                [
-                    "gal/day"
-                ]
+            "gallon per day":[
+              4.3812636805555563e-08,
+              [
+                "gal/day"
+              ]
             ],
-            "cubic meter per min": [
-                0.016666666666666666,
-                [
-                    "m^3/min"
-                ]
+            "cubic meter per min":[
+              0.016666666666666666,
+              [
+                "m^3/min",
+                "m\u00b3/min"
+              ]
             ]
-        },
-        "Length": {
-            "latitude minute": [
-                1852.0,
-                [
-                    "latitudeminutes"
-                ]
+          },
+          "Length":{
+            "latitude minute":[
+              1852.0,
+              [
+                "latitudeminutes"
+              ]
             ],
-            "latitude second": [
-                30.87,
-                [
-                    "latitudeseconds"
-                ]
+            "meter":[
+              1.0,
+              [
+                "m",
+                "meters",
+                "metre"
+              ]
             ],
-            "longitude minute": [
-                1607.0,
-                [
-                    "longitudeminutes"
-                ]
+            "millimeter":[
+              0.001,
+              [
+                "mm",
+                "millimeters"
+              ]
             ],
-            "longitude second":[
-                26.78,
-                [
-                    "longitudeseconds"
-                ]
+            "mile":[
+              1609.344,
+              [
+                "mi",
+                "miles"
+              ]
             ],
-            "meter": [
-                1.0,
-                [
-                    "m",
-                    "meters",
-                    "metre"
-                ]
+            "foot":[
+              0.3048,
+              [
+                "ft",
+                "feet"
+              ]
             ],
-            "millimeter": [
-                0.001,
-                [
-                    "mm",
-                    "millimeters"
-                ]
+            "centimeter":[
+              0.01,
+              [
+                "cm",
+                "centimeters"
+              ]
             ],
-            "mile": [
-                1609.344,
-                [
-                    "mi",
-                    "miles"
-                ]
+            "latitude degree":[
+              111120.0,
+              [
+                "latitudedegrees"
+              ]
             ],
-            "foot": [
-                0.3048,
-                [
-                    "ft",
-                    "feet"
-                ]
+            "nautical mile":[
+              1852.0,
+              [
+                "nm",
+                "nauticalmiles"
+              ]
             ],
-            "centimeter": [
-                0.01,
-                [
-                    "cm",
-                    "centimeters"
-                ]
+            "yard":[
+              0.9144,
+              [
+                "yrd",
+                "yards"
+              ]
             ],
-            "latitude degree": [
-                111120.0,
-                [
-                    "latitudedegrees"
-                ]
+            "fathom":[
+              1.8288,
+              [
+                "fthm",
+                "fathoms"
+              ]
             ],
-            "longitude degree": [
-                96420.0,
-                [
-                    "longitudedegrees"
-                ]
+            "kilometer":[
+              1000.0,
+              [
+                "km",
+                "kilometers"
+              ]
             ],
-            "nautical mile": [
-                1852.0,
-                [
-                    "nm",
-                    "nauticalmiles"
-                ]
+            "micron":[
+              1e-06,
+              [
+                "microns"
+              ]
             ],
-            "yard": [
-                0.9144,
-                [
-                    "yrd",
-                    "yards"
-                ]
-            ],
-            "fathom": [
-                1.8288,
-                [
-                    "fthm",
-                    "fathoms"
-                ]
-            ],
-            "kilometer": [
-                1000.0,
-                [
-                    "km",
-                    "kilometers"
-                ]
-            ],
-            "micron": [
-                1e-06,
-                [
-                    "microns"
-                ]
-            ],
-            "inch": [
-                0.0254,
-                [
-                    "in",
-                    "inches"
-                ]
+            "inch":[
+              0.0254,
+              [
+                "in",
+                "inches"
+              ]
             ]
-        },
-        "Mass": {
-            "metric ton (tonne)": [
-                1000.0,
-                [
-                    "tonnes",
-                    "metric ton",
-                    "metric tons"
-                ]
+          },
+          "Mass":{
+            "metric ton (tonne)":[
+              1000.0,
+              [
+                "tonnes",
+                "metric ton",
+                "metric tons"
+              ]
             ],
-            "ton (UK)": [
-                1016.0469,
-                [
-                    "ukton",
-                    "long ton"
-                ]
+            "ton (UK)":[
+              1016.0469,
+              [
+                "ukton",
+                "long ton"
+              ]
             ],
-            "pound": [
-                0.45359237,
-                [
-                    "lb",
-                    "pounds",
-                    "lbs"
-                ]
+            "pound":[
+              0.45359237,
+              [
+                "lb",
+                "pounds",
+                "lbs"
+              ]
             ],
-            "ton": [
-                907.18474,
-                [
-                    "tons",
-                    "uston"
-                ]
+            "ton":[
+              907.18474,
+              [
+                "tons",
+                "uston"
+              ]
             ],
-            "gram": [
-                0.001,
-                [
-                    "g",
-                    "grams"
-                ]
+            "gram":[
+              0.001,
+              [
+                "g",
+                "grams"
+              ]
             ],
-            "ounce": [
-                0.028349523,
-                [
-                    "oz",
-                    "ounces"
-                ]
+            "ounce":[
+              0.028349523,
+              [
+                "oz",
+                "ounces"
+              ]
             ],
-            "slug": [
-                14.5939,
-                [
-                    "slugs"
-                ]
+            "slug":[
+              14.5939,
+              [
+                "slugs"
+              ]
             ],
-            "kilogram": [
-                1.0,
-                [
-                    "kg",
-                    "kilograms"
-                ]
+            "kilogram":[
+              1.0,
+              [
+                "kg",
+                "kilograms"
+              ]
             ]
-        },
-        "Time": {
-            "second": [
-                1.0,
-                [
-                    "s",
-                    "sec",
-                    "seconds"
-                ]
+          },
+          "Time":{
+            "second":[
+              1.0,
+              [
+                "s",
+                "sec",
+                "seconds"
+              ]
             ],
-            "hour": [
-                3600.0,
-                [
-                    "hr",
-                    "hours",
-                    "hrs"
-                ]
+            "hour":[
+              3600.0,
+              [
+                "hr",
+                "hours",
+                "hrs"
+              ]
             ],
-            "minute": [
-                60.0,
-                [
-                    "min",
-                    "minutes"
-                ]
+            "minute":[
+              60.0,
+              [
+                "min",
+                "minutes"
+              ]
             ],
-            "day": [
-                86400.0,
-                [
-                    "days"
-                ]
+            "day":[
+              86400.0,
+              [
+                "days"
+              ]
             ]
-        },
-        "Velocity": {
-            "foot per hour": [
-                8.4666e-05,
-                [
-                    "ft/hr",
-                    "feet per hour",
-                    "feet/hour"
-                ]
+          },
+          "Velocity":{
+            "foot per hour":[
+              8.4666e-05,
+              [
+                "ft/hr",
+                "feet per hour",
+                "feet/hour"
+              ]
             ],
-            "foot per minute": [
-                0.00508,
-                [
-                    "ft/min",
-                    "feet per minute",
-                    "feet/min"
-                ]
+            "foot per minute":[
+              0.00508,
+              [
+                "ft/min",
+                "feet per minute",
+                "feet/min"
+              ]
             ],
-            "foot per second": [
-                0.3048,
-                [
-                    "ft/s",
-                    "ft/sec",
-                    "feet per second",
-                    "feet/s"
-                ]
+            "foot per second":[
+              0.3048,
+              [
+                "ft/s",
+                "ft/sec",
+                "feet per second",
+                "feet/s"
+              ]
             ],
-            "meter per minute": [
-                0.01666666666,
-                [
-                    "m/min",
-                    "meters per minute"
-                ]
+            "meter per minute":[
+              0.01666666666,
+              [
+                "m/min",
+                "meters per minute"
+              ]
             ],
-            "meter per second": [
-                1.0,
-                [
-                    "m/s",
-                    "meters per second",
-                    "mps"
-                ]
+            "meter per second":[
+              1.0,
+              [
+                "m/s",
+                "meters per second",
+                "mps",
+                "meter second-1",
+                "meters s-1",
+                "m s-1"
+              ]
             ],
-            "centimeter per second": [
-                0.01,
-                [
-                    "cm/s"
-                ]
+            "centimeter per second":[
+              0.01,
+              [
+                "cm/s"
+              ]
             ],
-            "mile per hour": [
-                0.44704,
-                [
-                    "mph",
-                    "miles per hour"
-                ]
+            "mile per hour":[
+              0.44704,
+              [
+                "mph",
+                "miles per hour"
+              ]
             ],
-            "knot": [
-                0.514444,
-                [
-                    "kts",
-                    "knots"
-                ]
+            "knot":[
+              0.514444,
+              [
+                "kts",
+                "knots"
+              ]
             ],
-            "kilometer per hour": [
-                0.277777,
-                [
-                    "km/h",
-                    "km/hr"
-                ]
+            "kilometer per hour":[
+              0.277777,
+              [
+                "km/h",
+                "km/hr"
+              ]
             ]
-        },
-        "Oil Concentration": {
-            "millimeter": [
-                1000.0,
-                [
-                    "mm",
-                    "millimeters"
-                ]
+          },
+          "Oil Concentration":{
+            "millimeter":[
+              1000.0,
+              [
+                "mm",
+                "millimeters"
+              ]
             ],
-            "barrel per acre": [
-                39.2866176,
-                [
-                    "bbl/acre"
-                ]
+            "barrel per acre":[
+              39.2866176,
+              [
+                "bbl/acre"
+              ]
             ],
-            "micron": [
-                1.0,
-                [
-                    "microns"
-                ]
+            "micron":[
+              1.0,
+              [
+                "microns"
+              ]
             ],
-            "barrel per square mile": [
-                0.06138533995,
-                [
-                    "bbl/sq.mile"
-                ]
+            "barrel per square mile":[
+              0.06138533995,
+              [
+                "bbl/sq.mile",
+                "bbl/mile\u00b2"
+              ]
             ],
-            "inch": [
-                25400.0,
-                [
-                    "in",
-                    "inches"
-                ]
+            "inch":[
+              25400.0,
+              [
+                "in",
+                "inches"
+              ]
             ],
-            "liter per hectare": [
-                0.1,
-                [
-                    "liter/hectare"
-                ]
+            "liter per hectare":[
+              0.1,
+              [
+                "liter/hectare"
+              ]
             ],
-            "cubic meter per square kilometer": [
-                1.0,
-                [
-                    "m^3/km^2"
-                ]
+            "cubic meter per square kilometer":[
+              1.0,
+              [
+                "m^3/km^2",
+                "m\u00b3/km\u00b2"
+              ]
             ],
-            "gallon per acre": [
-                0.935395632026874,
-                [
-                    "gal/acre"
-                ]
+            "gallon per acre":[
+              0.935395632026874,
+              [
+                "gal/acre"
+              ]
             ]
-        },
-        "Density": {
-            "gram per cubic centimeter": [
-                1.0,
-                [
-                    "g/cm^3",
-                    "grams per cubic centimeter"
-                ]
+          },
+          "Density":{
+            "gram per cubic centimeter":[
+              1.0,
+              [
+                "g/cm^3",
+                "g/cm\u00b3",
+                "grams per cubic centimeter"
+              ]
             ],
-            "API degree": [
-                1,
-                [
-                    "api"
-                ]
+            "API degree":[
+              1,
+              [
+                "api"
+              ]
             ],
-            "pound per cubic foot": [
-                0.016018463,
-                [
-                    "lbs/ft^3"
-                ]
+            "pound per cubic foot":[
+              0.016018463,
+              [
+                "lbs/ft^3",
+                "lb/ft\u00b3"
+              ]
             ],
-            "kilogram per cubic meter": [
-                0.001,
-                [
-                    "kg/m^3"
-                ]
+            "kilogram per cubic meter":[
+              0.001,
+              [
+                "kg/m^3",
+                "kg/m\u00b3"
+              ]
             ],
-            "specific gravity (15\u00b0C)": [
-                0.99913,
-                [
-                    "S",
-                    "specificgravity",
-                    "Spec grav",
-                    "SG",
-                    "specificgravity(15C)"
-                ]
+            "specific gravity (15\u00b0C)":[
+              0.99913,
+              [
+                "S",
+                "specificgravity",
+                "Spec grav",
+                "SG",
+                "specificgravity(15C)"
+              ]
             ]
-        },
-        "Concentration In Water": {
-            "nanogram per liter": [
-                1e-06,
-                []
+          },
+          "Angular Measure":{
+            "degrees":[
+              0.017453292519943295,
+              [
+                "degree",
+                "deg"
+              ]
             ],
-            "pound per cubic foot": [
-                16018.463,
-                [
-                    "lb/ft^3"
-                ]
-            ],
-            "milligram per kilogram": [
-                1.0,
-                [
-                    "mg/kg"
-                ]
-            ],
-            "milligram per liter": [
-                1.0,
-                [
-                    "mg/l"
-                ]
-            ],
-            "part per trillion": [
-                1e-06,
-                [
-                    "parts per trillion",
-                    "pptr"
-                ]
-            ],
-            "kilogram per cubic meter": [
-                1000,
-                [
-                    "kg/m^3",
-                    "kg/m3"
-                ]
-            ],
-            "microgram per liter": [
-                0.001,
-                [
-                    "ug/l"
-                ]
-            ],
-            "percent": [
-                10000.0,
-                [
-                    "%",
-                    "parts per hundred",
-                    "per cent"
-                ]
-            ],
-            "milligram per milliliter": [
-                1000,
-                [
-                    "mg/ml"
-                ]
-            ],
-            "fraction (decimal)": [
-                1000000.0,
-                [
-                    "fraction",
-                    "mass per mass"
-                ]
-            ],
-            "part per thousand": [
-                1000,
-                [
-                    "ppt",
-                    "parts per thousand"
-                ]
-            ],
-            "part per billion": [
-                0.001,
-                [
-                    "ppb",
-                    "parts per billion"
-                ]
-            ],
-            "part per million": [
-                1.0,
-                [
-                    "ppm",
-                    "parts per million"
-                ]
+            "radians":[
+              1.0,
+              [
+                "radian",
+                "rad"
+              ]
             ]
-        },
-        "Volume": {
-            "barrel (petroleum)": [
-                0.1589873,
-                [
-                    "bbl",
-                    "barrels",
-                    "barrel",
-                    "bbls"
-                ]
+          },
+          "Concentration In Water":{
+            "nanogram per liter":[
+              1e-09,
+              [
+                "ng/l"
+              ]
             ],
-            "liter": [
-                0.001,
-                [
-                    "l",
-                    "liters"
-                ]
+            "pound per cubic foot":[
+              16.018450433864,
+              [
+                "lb/ft^3",
+                "lb/ft\u00b3"
+              ]
             ],
-            "cubic inch": [
-                1.6387064e-05,
-                [
-                    "in^3",
-                    "cu inch",
-                    "cubicinches"
-                ]
+            "milligram per kilogram":[
+              0.001,
+              [
+                "mg/kg"
+              ]
             ],
-            "fluid ounce (UK)": [
-                2.841306e-05,
-                [
-                    "ukoz",
-                    "fluid oz(uk)"
-                ]
+            "milligram per liter":[
+              0.001,
+              [
+                "mg/l"
+              ]
             ],
-            "gallon": [
-                0.0037854118,
-                [
-                    "gal",
-                    "gallons",
-                    "usgal"
-                ]
+            "part per trillion":[
+              1e-09,
+              [
+                "parts per trillion",
+                "pptr"
+              ]
             ],
-            "gallon (UK)": [
-                0.00454609,
-                [
-                    "ukgal",
-                    "gallons(uk)"
-                ]
+            "gram per cubic meter":[
+              0.001,
+              [
+                "g/m^3",
+                "g/m\u00b3"
+              ]
             ],
-            "cubic centimeter": [
-                1e-06,
-                [
-                    "cm^3",
-                    "cu cm",
-                    "cc"
-                ]
+            "kilogram per cubic meter":[
+              1.0,
+              [
+                "kg/m^3",
+                "kg/m\u00b3"
+              ]
             ],
-            "cubic kilometer": [
-                1000000000.0,
-                [
-                    "km^3",
-                    "cu km",
-                    "cubic kilometers"
-                ]
+            "microgram per liter":[
+              1e-06,
+              [
+                "ug/l"
+              ]
             ],
-            "cubic meter": [
-                1.0,
-                [
-                    "m^3",
-                    "cu m",
-                    "cubic meters"
-                ]
+            "percent":[
+              10.0,
+              [
+                "%",
+                "parts per hundred",
+                "per cent"
+              ]
             ],
-            "fluid ounce": [
-                2.957353e-05,
-                [
-                    "oz",
-                    "ounces(fluid)",
-                    "fluid oz"
-                ]
+            "milligram per milliliter":[
+              1.0,
+              [
+                "mg/ml"
+              ]
             ],
-            "million US gallon": [
-                3785.4118,
-                [
-                    "milliongallons",
-                    "milgal"
-                ]
+            "fraction (decimal)":[
+              1000.0,
+              [
+                "fraction",
+                "mass per mass"
+              ]
             ],
-            "cubic yard": [
-                0.76455486,
-                [
-                    "yd^3",
-                    "cu yard",
-                    "cubicyards"
-                ]
+            "part per thousand":[
+              1.0,
+              [
+                "ppt",
+                "parts per thousand"
+              ]
             ],
-            "cubic foot": [
-                0.028316847,
-                [
-                    "ft^3",
-                    "cu feet",
-                    "cubicfeet"
-                ]
+            "part per billion":[
+              1e-06,
+              [
+                "ppb",
+                "parts per billion"
+              ]
+            ],
+            "part per million":[
+              0.001,
+              [
+                "ppm",
+                "parts per million"
+              ]
             ]
-        },
-        "Kinematic Viscosity": {
-            "square meter per second": [
-                10000,
-                [
-                    "m^2/s"
-                ]
+          },
+          "Volume":{
+            "barrel (petroleum)":[
+              0.1589873,
+              [
+                "bbl",
+                "barrels",
+                "barrel",
+                "bbls"
+              ]
             ],
-            "square inch per second": [
-                6.4516,
-                [
-                    "in^2/s",
-                    "squareinchespersecond"
-                ]
+            "liter":[
+              0.001,
+              [
+                "l",
+                "liters"
+              ]
             ],
-            "Saybolt Universal Second": [
-                0.0021645021645021645,
-                [
-                    "SSU",
-                    "SUS"
-                ]
+            "cubic inch":[
+              1.6387064e-05,
+              [
+                "in^3",
+                "in\u00b3",
+                "cu inch",
+                "cubicinches"
+              ]
             ],
-            "square centimeter per second": [
-                1.0,
-                [
-                    "cm^2/s"
-                ]
+            "fluid ounce (UK)":[
+              2.841306e-05,
+              [
+                "ukoz",
+                "fluid oz(uk)"
+              ]
             ],
-            "Stoke": [
-                1.0,
-                [
-                    "St",
-                    "stokes"
-                ]
+            "gallon":[
+              0.0037854118,
+              [
+                "gal",
+                "gallons",
+                "usgal"
+              ]
             ],
-            "Saybolt Furol Second": [
-                0.02116959064,
-                [
-                    "SSF",
-                    "SFS"
-                ]
+            "gallon (UK)":[
+              0.00454609,
+              [
+                "ukgal",
+                "gallons(uk)"
+              ]
             ],
-            "centiStoke": [
-                0.01,
-                [
-                    "cSt",
-                    "centistokes"
-                ]
+            "cubic centimeter":[
+              1e-06,
+              [
+                "cm^3",
+                "cm\u00b3",
+                "cu cm",
+                "cc"
+              ]
             ],
-            "square millimeter per second": [
-                0.01,
-                [
-                    "mm^2/s"
-                ]
+            "cubic kilometer":[
+              1000000000.0,
+              [
+                "km^3",
+                "km\u00b3",
+                "cu km",
+                "cubic kilometers"
+              ]
+            ],
+            "cubic meter":[
+              1.0,
+              [
+                "m^3",
+                "m\u00b3",
+                "cu m",
+                "cubic meters"
+              ]
+            ],
+            "fluid ounce":[
+              2.957353e-05,
+              [
+                "oz",
+                "ounces(fluid)",
+                "fluid oz"
+              ]
+            ],
+            "million US gallon":[
+              3785.4118,
+              [
+                "milliongallons",
+                "milgal"
+              ]
+            ],
+            "cubic yard":[
+              0.76455486,
+              [
+                "yd^3",
+                "yd\u00b3",
+                "cu yard",
+                "cubicyards"
+              ]
+            ],
+            "cubic foot":[
+              0.028316847,
+              [
+                "ft^3",
+                "ft\u00b3",
+                "cu feet",
+                "cubicfeet"
+              ]
             ]
-        }
+          },
+          "Kinematic Viscosity":{
+            "square meter per second":[
+              10000,
+              [
+                "m^2/s",
+                "m\u00b2/s"
+              ]
+            ],
+            "square inch per second":[
+              6.4516,
+              [
+                "in^2/s",
+                "in\u00b2/s",
+                "squareinchespersecond"
+              ]
+            ],
+            "Saybolt Universal Second":[
+              0.0021645021645021645,
+              [
+                "SSU",
+                "SUS"
+              ]
+            ],
+            "square centimeter per second":[
+              1.0,
+              [
+                "cm^2/s",
+                "cm\u00b2/s"
+              ]
+            ],
+            "Stoke":[
+              1.0,
+              [
+                "St",
+                "stokes"
+              ]
+            ],
+            "Saybolt Furol Second":[
+              0.02116959064,
+              [
+                "SSF",
+                "SFS"
+              ]
+            ],
+            "centiStoke":[
+              0.01,
+              [
+                "cSt",
+                "centistokes"
+              ]
+            ],
+            "square millimeter per second":[
+              0.01,
+              [
+                "mm^2/s",
+                "mm\u00b2/s"
+              ]
+            ]
+          }
+}
     };
 
 
