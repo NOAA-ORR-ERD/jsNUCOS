@@ -1,11 +1,11 @@
-#Nucos (NOAA Unit Conversion for Oil Spills)
+# Nucos (NOAA Unit Conversion for Oil Spills)
 
 Used for converting temperature, volume, and mass.
 
-##Basic Usage
+## Basic Usage
 
 
-###Convert when the unit types are the same:
+### Convert when the unit types are the same:
 ```
 nucos.convert(unitType, fromUnit, toUnit, value)
 ```
@@ -13,7 +13,7 @@ Example:
 ```
 nucos.convert("Density", "API degree", "kg/m^3", 10)
 ```
-###Convert between different quantities (volume and mass)
+### Convert between different quantities (volume and mass)
 
   Instantiate the OilQuantityConverter off of nucos
   ```
