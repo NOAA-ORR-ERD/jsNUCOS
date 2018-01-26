@@ -49,7 +49,7 @@ describe('nucos.sexagesimal2decimal', function(){
 
     it('should convert with fancy characters, degrees, and decimal', function(){
         var lon = "42° 20.45' N";
-        assert.equal(nucos.sexagesimal2decimal(lon), 42.34083);
+        assert.equal(nucos.sexagesimal2decimal(lon), 42.34083333);
     });
 
     it('should convert degress w/ decimal minutes', function(){
