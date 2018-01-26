@@ -47,6 +47,11 @@ describe('nucos.sexagesimal2decimal', function(){
         assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
     });
 
+    it('should convert with fancy characters, degrees, and decimal', function(){
+        var lon = "42° 20.45' N";
+        assert.equal(nucos.sexagesimal2decimal(lon), 42.34083);
+    });
+
     it('should convert degress w/ decimal minutes', function(){
         var lon = "24 43.16";
         var lat = "58 44.43";
@@ -92,6 +97,10 @@ describe('nucos.convert', function(){
     it('should convert same unit density', function(){
         assert.equal(nucos.convert("Density", "API degree", "kg/m^3", 10), 999.13);
     });
+
+    it('should parse unicode exponenets', function(){
+        assert.equal(nucos.convert('Density', 'API degree', 'kg/m³', 10), 999.13);
+    });
 });
 
 describe('nocos.OilQuantityConverter', function(){
@@ -100,3 +109,4 @@ describe('nocos.OilQuantityConverter', function(){
         assert.equal(oc.Convert(50, "tons", 10, "API degree", "cubic meters"), 45.39873389849169);
     });
 });
+
