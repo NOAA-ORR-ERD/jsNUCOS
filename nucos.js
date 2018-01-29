@@ -317,7 +317,8 @@
               [
                 "tonnes",
                 "metric ton",
-                "metric tons"
+                "metric tons",
+                "mt"
               ]
             ],
             "ton (UK)":[
