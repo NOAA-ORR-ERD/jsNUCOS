@@ -851,8 +851,8 @@
     };
 
     var sexagesimalPattern = {
-            value: /^([0-9]{1,3})\°*\s*([0-9]{1,3}(?:\.*(?:[0-9]{1,2}))?)\'*\s*(([0-9]{1,3}(\.([0-9]{1,2}))?)\"*\s*)?([NEOSW]?)$/i
-        };
+        value: /^(-?[0-9]{1,3})\°*\s*([0-9]{1,3}(?:\.*(?:[0-9]{1,2}))?)\'*\s*(([0-9]{1,3}(\.([0-9]{1,2}))?)\"*\s*)?([NEOSW]?)$/i
+    };
 
     /**
      * @param str String that is parsed to determine the decimal degree value
@@ -875,8 +875,12 @@
             sec = parseFloat(data[4]/3600) || 0;
         }
 
-        var dec = ((parseFloat(data[1]) + min + sec)).toFixed(8);
-
+        var dec;
+        if (parseFloat(data[1]) > 0){
+            dec = ((parseFloat(data[1]) + min + sec)).toFixed(8);
+        } else {
+            dec = ((parseFloat(data[1]) - min - sec)).toFixed(8);
+        }
         dec = (['s', 'S', 'w', 'W'].indexOf(data[7]) !== -1) ? parseFloat(-dec) : parseFloat(dec);
 
         return dec;
