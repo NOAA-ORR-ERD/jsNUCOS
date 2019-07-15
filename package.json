@@ -1,6 +1,6 @@
 {
   "name": "nucos",
-  "version": "1.2.0",
+  "version": "1.2.9",
   "description": "NOAA Unit Conversion for Oil Spills",
   "main": "nucos.js",
   "scripts": {
@@ -23,6 +23,10 @@
     "quantity"
   ],
   "author": "Alex Miranda <alex.miranda@noaa.gov>",
+  "contributors": [
+    "Naomi Wilkins <naomi.wilkins@noaa.gov>",
+    "Chris Barker <chris.barker@noaa.gov>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/NOAA-ORR-ERD/NUCOS/issues"
