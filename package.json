@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/NOAA-ORR-ERD/NUCOS#readme",
   "devDependencies": {
-    "mocha": "^2.4.5",
+    "mocha": "^6.1.4",
     "requirejs": "^2.1.22"
   }
 }
