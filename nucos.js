@@ -790,64 +790,26 @@
             ]
           },
           "Kinematic Viscosity":{
-            "square meter per second":[
-              10000,
-              [
-                "m^2/s",
-                "m\u00b2/s"
-              ]
-            ],
-            "square inch per second":[
-              6.4516,
-              [
-                "in^2/s",
-                "in\u00b2/s",
-                "squareinchespersecond"
-              ]
-            ],
-            "Saybolt Universal Second":[
-              0.0021645021645021645,
-              [
-                "SSU",
-                "SUS"
-              ]
-            ],
-            "square centimeter per second":[
-              1.0,
-              [
-                "cm^2/s",
-                "cm\u00b2/s"
-              ]
-            ],
-            "Stoke":[
-              1.0,
-              [
-                "St",
-                "stokes"
-              ]
-            ],
-            "Saybolt Furol Second":[
-              0.02116959064,
-              [
-                "SSF",
-                "SFS"
-              ]
-            ],
-            "centiStoke":[
-              0.01,
-              [
-                "cSt",
-                "centistokes"
-              ]
-            ],
-            "square millimeter per second":[
-              0.01,
-              [
-                "mm^2/s",
-                "mm\u00b2/s"
-              ]
-            ]
-          }
+            "Stoke":     [1.0, ["St", "stokes"]],
+            "centiStoke":[0.01, ["cSt", "centistokes"]],
+            "square meter per second":     [10000, ["m^2/s", "m\u00b2/s"]],
+            "square centimeter per second":[1.0, ["cm^2/s", "cm\u00b2/s"]],
+            "square millimeter per second":[0.01, ["mm^2/s", "mm\u00b2/s"]],
+            "square inch per second":      [6.4516, ["in^2/s", "in\u00b2/s", "squareinchespersecond"]],
+            "Saybolt Universal Second":[1.0 / 462.0, ["SSU", "SUS"]],
+            "Saybolt Furol Second":    [0.02116959064, ["SSF", "SFS"]],
+          },
+          "Dynamic Viscosity": {
+            "kilogram per meter per second":  [1.0, ["kg/(m s)"]],
+            "gram per centimeter per second": [0.1, ["g/(cm s)"]],
+            "Pascal second":      [1.0, ["Pa s", "Pa.s"]],
+            "milliPascal second": [0.001, ["mPa s", "mPa.s"]],
+            "poise":      [0.1, ["p"]],
+            "centipoise": [0.001, ["cP"]],
+            "Newton seconds per square meter":    [1.0, ["N s/m^2", "N s/m\u00b2"]],
+            "dyne seconds per square centimeter": [0.1, ["dyne s/cm^2", "dyne s/cm\u00b2"]],
+          },
+
     };
 
     var sexagesimalPattern = {
@@ -1007,18 +969,17 @@
             dataDict.push([unitTerm, UnitsDict[unitTerm]]);
         }
 
-        for(var dataset in dataDict){
-            var primaryName = dataDict[dataset][0];
-            var data = dataDict[dataset][1];
+        dataDict.forEach(dataSet => {
+            var [primaryName, data] = dataSet;
 
             var pname = _Simplify(primaryName);
             this.Convertdata[pname] = data[0];
             this.Synonyms[pname] = pname;
 
-            for (var synonym in data[1]){
-                this.Synonyms[_Simplify(data[1][synonym])] = pname;
-            }
-        }
+            data[1].forEach(synonym => {
+                this.Synonyms[_Simplify(synonym)] = pname;
+            });
+        });
 
         this.Convert = function(FromUnit, ToUnit, Value){
             var fromUnit = _Simplify(FromUnit);
@@ -1091,17 +1052,19 @@
         dataDict.push([unitType, unitDict[unitType]]);
     }
 
-    for (var dataset in dataDict){
-        var unitType = dataDict[dataset][0];
-        var data = dataDict[dataset][1];
-        if (unitType.toLowerCase() === "density"){
+    dataDict.forEach(dataSet => {
+        var [unitType, data] = dataSet;
+
+        if (unitType.toLowerCase() === "density") {
             Converters["density"] = new DensityConverterClass(unitType, data);
-        } else if (unitType.toLowerCase() === "temperature"){
+        }
+        else if (unitType.toLowerCase() === "temperature") {
             Converters["temperature"] = new TempConverterClass(unitType, data);
-        } else {
+        }
+        else {
             Converters[_Simplify(unitType)] = new ConverterClass(unitType, data);
         }
-    }
+    });
 
     var convert = function(UnitType, FromUnit, ToUnit, Value){
         var unitType = _Simplify(UnitType);
