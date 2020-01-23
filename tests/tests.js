@@ -106,9 +106,25 @@ describe('nucos.convert', function(){
         assert.equal(nucos.convert("Density", "API degree", "kg/m^3", 10), 999.13);
     });
 
-    it('should parse unicode exponenets', function(){
+    it('should parse unicode exponents', function(){
         assert.equal(nucos.convert('Density', 'API degree', 'kg/m³', 10), 999.13);
     });
+
+    it('should convert Concentration', function(){
+        assert.equal(nucos.convert('Concentration', 'ppm', 'fraction', 1.0), 1e-6);
+    });
+
+    it('should convert Interfacial Tension', function(){
+        assert.equal(nucos.convert('InterfacialTension', 'N/m', 'dyn/cm', 1.0), 1e3);
+    });
+
+
+// describe('nocos.convert', function(){
+//     it('should convert Concentration', function(){
+//         assert.equal(nucos.Convert("Concentration", "ppm", "fraction", 1.0), 1e-6);
+//     });
+
+
 });
 
 describe('nocos.OilQuantityConverter', function(){
@@ -116,5 +132,7 @@ describe('nocos.OilQuantityConverter', function(){
         var oc = new nucos.OilQuantityConverter();
         assert.equal(oc.Convert(50, "tons", 10, "API degree", "cubic meters"), 45.39873389849169);
     });
+
+
 });
 
