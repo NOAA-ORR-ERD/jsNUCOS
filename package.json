@@ -1,6 +1,6 @@
 {
   "name": "nucos",
-  "version": "1.2.10",
+  "version": "1.3.0",
   "description": "NOAA Unit Conversion for Oil Spills",
   "main": "nucos.js",
   "scripts": {
@@ -22,9 +22,9 @@
     "longitude",
     "quantity"
   ],
-  "author": "Alex Miranda <alex.miranda@noaa.gov>",
+  "author": "Naomi Wilkins <naomi.wilkins@noaa.gov>",
   "contributors": [
-    "Naomi Wilkins <naomi.wilkins@noaa.gov>",
+    "James Makela<james.makela@noaa.gov>",
     "Chris Barker <chris.barker@noaa.gov>"
   ],
   "license": "MIT",

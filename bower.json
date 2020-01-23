@@ -1,10 +1,10 @@
 {
   "name": "nucos",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "homepage": "https://github.com/NOAA-ORR-ERD/NUCOS",
   "authors": [
-    "Alexander Miranda <alex.miranda@noaa.gov>",
-    "Nathan Wilkins <nathan.wilkins@noaa.gov>"
+    "Naomi Wilkins <naomi.wilkins@noaa.gov>",
+    "James Makela <james.makela@noaa.gov"
   ],
   "description": "Unit conversion library",
   "main": "nucos.js",
@@ -17,8 +17,7 @@
     "unit",
     "conversion",
     "oil",
-    "spill",
-    "oil"
+    "spill"
   ],
   "license": "MIT",
   "ignore": [
