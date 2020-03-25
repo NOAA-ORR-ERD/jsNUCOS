@@ -3,10 +3,6 @@
   "version": "1.3.1",
   "description": "NOAA Unit Conversion for Oil Spills",
   "main": "nucos.js",
-  "files": [
-      "nucos.js",
-      "unit_data.json"
-  ],
   "scripts": {
     "test": "mocha tests/tests.js"
   },
