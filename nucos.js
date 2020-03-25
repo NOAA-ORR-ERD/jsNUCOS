@@ -1,14 +1,12 @@
 (function (root, factory) {
     if(typeof define === "function" && define.amd) {
-        define([], factory);
+        define(['json!./nucos/unit_data.json'], factory);
     } else if(typeof module === "object" && module.exports) {
         module.exports = factory();
     } else {
         root.nucos = factory();
     }
-}(this, function() {
-    var unitDict = require('./unit_data.json');
-
+}(this, function(unitDict) {
     var sexagesimalPattern = {
         value: /^(-?[0-9]{1,3})\°*\s*([0-9]{1,3}(?:\.*(?:[0-9]{1,2}))?)\'*\s*(([0-9]{1,3}(\.([0-9]{1,2}))?)\"*\s*)?([NEOSW]?)$/i
     };
