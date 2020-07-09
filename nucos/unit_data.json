@@ -394,6 +394,39 @@
       ]
     ]
   },
+  "Delta Temperature":{
+    "Kelvin":[
+      1.0,
+      [
+        "K",
+        "degrees k",
+        "degree k",
+        "degrees kelvin",
+        "degree kelvin",
+        "deg k"
+      ]
+    ],
+    "Celsius":[
+      1.0,
+      [
+        "C",
+        "degrees c",
+        "degrees celsius",
+        "deg c",
+        "centigrade"
+      ]
+    ],
+    "Fahrenheit":[
+      0.5555555555555556,
+      [
+        "F",
+        "degrees f",
+        "degree f",
+        "deg f",
+        "degrees fahrenheit"
+      ]
+    ]
+  },
   "Mass":{
     "kilogram":[
       1.0,
@@ -744,6 +777,7 @@
       0.016018463,
       [
         "lbs/ft^3",
+        "lb/ft^3",
         "lb/ft\u00b3"
       ]
     ],
@@ -823,15 +857,13 @@
     "Pascal second":[
       1.0,
       [
-        "Pa s",
-        "Pa.s"
+        "Pa s"
       ]
     ],
     "milliPascal second":[
       0.001,
       [
-        "mPa s",
-        "mPa.s"
+        "mPa s"
       ]
     ],
     "Newton seconds per square meter":[
@@ -927,7 +959,7 @@
       ]
     ]
   },
-  "Adhesion":{
+  "Pressure":{
     "Pascal":[
       1.0,
       [
@@ -965,42 +997,6 @@
         "mbar"
       ]
     ],
-    "gram force per square centimeter":[
-      98.0665,
-      [
-        "g/cm^2",
-        "gf/cm^2",
-        "g/cm\u00b2",
-        "gf/cm\u00b2"
-      ]
-    ],
-    "gram force per square meter":[
-      0.00980665,
-      [
-        "g/m^2",
-        "gf/m^2",
-        "g/m\u00b2",
-        "gf/m\u00b2"
-      ]
-    ],
-    "kilogram force per square centimeter":[
-      98066.5,
-      [
-        "kg/cm^2",
-        "kgf/cm^2",
-        "kg/cm\u00b2",
-        "kgf/cm\u00b2"
-      ]
-    ],
-    "kilogram force per square meter":[
-      9.80665,
-      [
-        "kg/m^2",
-        "kgf/m^2",
-        "kg/m\u00b2",
-        "kgf/m\u00b2"
-      ]
-    ],
     "dyne per square centimeter":[
       0.1,
       [
@@ -1008,15 +1004,12 @@
         "dyn/cm\u00b2"
       ]
     ],
-    "pound force per square inch":[
+    "pound per square inch":[
       6894.76,
       [
         "lb/in^2",
-        "lbf/in^2",
         "psi",
-        "pfsi",
-        "lb/in\u00b2",
-        "lbf/in\u00b2"
+        "lb/in\u00b2"
       ]
     ]
   },
@@ -1185,6 +1178,31 @@
       ]
     ]
   },
+  "Dimensionless":{
+    "fraction (decimal)":[
+      1.0,
+      [
+        "number",
+        "fraction",
+        "1"
+      ]
+    ],
+    "percent":[
+      0.01,
+      [
+        "%",
+        "parts per hundred"
+      ]
+    ],
+    "part per thousand":[
+      0.001,
+      [
+        "0/00",
+        "\u2030",
+        "parts per thousand"
+      ]
+    ]
+  },
   "Mass Fraction":{
     "fraction (decimal)":[
       1.0,
@@ -1325,6 +1343,28 @@
       [
         "degree",
         "deg"
+      ]
+    ]
+  },
+  "Angular Velocity":{
+    "rad/s":[
+      1.0,
+      [
+        "1/s",
+        "radians/sec"
+      ]
+    ],
+    "hertz":[
+      6.283185307179586,
+      [
+        "hz",
+        "cycles/sec"
+      ]
+    ],
+    "rpm":[
+      0.10471975511965977,
+      [
+        "rotations per minute"
       ]
     ]
   }
