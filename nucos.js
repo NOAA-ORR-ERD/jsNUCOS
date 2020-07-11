@@ -46,9 +46,12 @@
     /**
      * Method used to calculate the total duration of an in-situ burn
      *
-     * @param thickness The initial thickness of the oil immediately preceding the burn in meters
-     * @param waterFract The emulsion water fraction value associated with the burned oil between 0 and 1
-     * @return The time duration in seconds for how long the burn will take to complete
+     * @param thickness The initial thickness of the oil
+     *                  immediately preceding the burn in meters
+     * @param waterFract The emulsion water fraction value associated with
+     *                   the burned oil between 0 and 1
+     * @return The time duration in seconds for how long the burn will take
+     *         to complete
     **/
     var _BurnDuration = function(thickness, waterFract){
         return (thickness - 0.002) / (0.000058 * (1 - waterFract));
@@ -56,12 +59,14 @@
 
     /**
     *
+    * Modifies The string with the whitespace and capitalization removed.
+    * Also treats the '.' as a space.
+    * 
     * @param str String that is manipulated
-    * @return The string with the whitespace and capitalization removed
+    * @return The simplified string
     **/
     var _Simplify = function(str){
-        var string = "";
-        return str.toLowerCase().split(" ").join("");
+        return str.toLowerCase().replace('.' , ' ').split(' ').join('');
     };
 
     /**
