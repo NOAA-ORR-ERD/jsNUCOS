@@ -1,6 +1,10 @@
 (function (root, factory) {
     if(typeof define === "function" && define.amd) {
-        define(['json!./nucos/unit_data.json'], factory);
+        try {
+            define(['json!./nucos/unit_data.json'], factory);
+        } catch (err){
+            define(['./nucos/unit_data.json'], factory);
+        }
     } else if(typeof module === "object" && module.exports) {
         module.exports = factory();
     } else {
