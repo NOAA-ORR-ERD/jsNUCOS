@@ -163,6 +163,7 @@
         this.Name = TypeName;
         this.Synonyms = {};
         this.Convertdata = {};
+        this.PrimaryUnitNames = {};
 
 
         // loop through the UnitsDict to construct the a per term value and synomym set.
@@ -177,6 +178,11 @@
             var [primaryName, data] = dataSet;
 
             var pname = _Simplify(primaryName);
+
+            this.PrimaryUnitNames[pname] = primaryName.replace(/\w\S*/g, (txt) => {
+                return txt.charAt(0).toUpperCase() + txt.substr(1);
+            });
+
             this.Convertdata[pname] = data[0];
             this.Synonyms[pname] = pname;
 
