@@ -104,8 +104,8 @@
     "cubic meter per square kilometer":[
       1.0,
       [
-        "m^3/km^2",
-        "m\u00b3/km\u00b2"
+        "m\u00b3/km\u00b2",
+        "m^3/km^2"
       ]
     ],
     "millimeter":[
@@ -131,8 +131,8 @@
     "barrel per square mile":[
       0.06138533995,
       [
-        "bbl/sq.mile",
-        "bbl/mile\u00b2"
+        "bbl/mile\u00b2",
+        "bbl/sq.mile"
       ]
     ],
     "gallon per acre":[
@@ -144,28 +144,36 @@
     "liter per hectare":[
       0.1,
       [
-        "liter/hectare"
+        "liter/hectare",
+        "l/hectare"
+      ]
+    ],
+    "liter per square meter":[
+      1000.0,
+      [
+        "l/m\u00b2",
+        "l/m^2"
       ]
     ],
     "gram per square meter":[
       1.0526315789473684,
       [
-        "g/m^2",
-        "g/m\u00b2"
+        "g/m\u00b2",
+        "g/m^2"
       ]
     ],
     "kilogram per square meter":[
       1052.6315789473683,
       [
-        "kg/m^2",
-        "kg/m\u00b2"
+        "kg/m\u00b2",
+        "kg/m^2"
       ]
     ],
     "kilogram per square kilometer":[
       0.0010526315789473684,
       [
-        "kg/km^2",
-        "g/km\u00b2"
+        "g/km\u00b2",
+        "kg/km^2"
       ]
     ]
   },
@@ -173,24 +181,24 @@
     "square meter":[
       1.0,
       [
-        "m^2",
         "m\u00b2",
+        "m^2",
         "sq m"
       ]
     ],
     "square centimeter":[
       0.0001,
       [
-        "cm^2",
         "cm\u00b2",
+        "cm^2",
         "sq cm"
       ]
     ],
     "square kilometer":[
       1000000.0,
       [
-        "km^2",
         "km\u00b2",
+        "km^2",
         "sq km"
       ]
     ],
@@ -226,8 +234,8 @@
     "square foot":[
       0.09290304,
       [
-        "ft^2",
         "ft\u00b2",
+        "ft^2",
         "sq foot",
         "square feet"
       ]
@@ -235,8 +243,8 @@
     "square inch":[
       0.00064516,
       [
-        "in^2",
         "in\u00b2",
+        "in^2",
         "sq inch",
         "square inches"
       ]
@@ -253,28 +261,28 @@
     "cubic meter":[
       1.0,
       [
+        "m\u00b3",
         "m^3",
         "cu m",
-        "cubic meters",
-        "m\u00b3"
+        "cubic meters"
       ]
     ],
     "cubic kilometer":[
       1000000000.0,
       [
+        "km\u00b3",
         "km^3",
         "cu km",
-        "cubic kilometers",
-        "km\u00b3"
+        "cubic kilometers"
       ]
     ],
     "cubic centimeter":[
       1e-06,
       [
+        "cm\u00b3",
         "cm^3",
         "cu cm",
-        "cc",
-        "cm\u00b3"
+        "cc"
       ]
     ],
     "barrel (petroleum)":[
@@ -318,28 +326,28 @@
     "cubic foot":[
       0.028316847,
       [
+        "ft\u00b3",
         "ft^3",
         "cu feet",
-        "cubicfeet",
-        "ft\u00b3"
+        "cubicfeet"
       ]
     ],
     "cubic inch":[
       1.6387064e-05,
       [
+        "in\u00b3",
         "in^3",
         "cu inch",
-        "cubicinches",
-        "in\u00b3"
+        "cubicinches"
       ]
     ],
     "cubic yard":[
       0.76455486,
       [
+        "yd\u00b3",
         "yd^3",
         "cu yard",
-        "cubicyards",
-        "yd\u00b3"
+        "cubicyards"
       ]
     ],
     "fluid ounce":[
@@ -546,7 +554,8 @@
         "mps",
         "meter second-1",
         "meters s-1",
-        "m s-1"
+        "m s-1",
+        "meter/sec"
       ]
     ],
     "centimeter per second":[
@@ -620,24 +629,24 @@
     "cubic meter per second":[
       1.0,
       [
+        "m\u00b3/s",
         "m^3/s",
         "cu m/s",
-        "cms",
-        "m\u00b3/s"
+        "cms"
       ]
     ],
     "cubic meter per min":[
       0.016666666666666666,
       [
-        "m^3/min",
-        "m\u00b3/min"
+        "m\u00b3/min",
+        "m^3/min"
       ]
     ],
     "cubic meter per hour":[
       0.0002777777777777778,
       [
-        "m^3/hr",
-        "m\u00b3/hr"
+        "m\u00b3/hr",
+        "m^3/hr"
       ]
     ],
     "liter per second":[
@@ -656,17 +665,17 @@
     "cubic foot per second":[
       0.02831685,
       [
+        "ft\u00b3/s",
         "cfs",
         "cu feet/s",
-        "feet^3/s",
-        "ft\u00b3/s"
+        "feet^3/s"
       ]
     ],
     "cubic foot per minute":[
       0.00047194744,
       [
-        "ft^3/min",
-        "ft\u00b3/min"
+        "ft\u00b3/min",
+        "ft^3/min"
       ]
     ],
     "gallon per day":[
@@ -727,8 +736,8 @@
     "gram per cubic centimeter":[
       1.0,
       [
-        "g/cm^3",
         "g/cm\u00b3",
+        "g/cm^3",
         "grams per cubic centimeter"
       ]
     ],
@@ -754,7 +763,7 @@
       ]
     ],
     "specific gravity (15\u00b0C)":[
-      0.99913,
+      0.999016,
       [
         "S",
         "specificgravity",
@@ -766,15 +775,15 @@
     "kilogram per cubic meter":[
       0.001,
       [
-        "kg/m^3",
-        "kg/m\u00b3"
+        "kg/m\u00b3",
+        "kg/m^3"
       ]
     ],
     "tonne per cubic meter":[
       1.0,
       [
-        "tonne/m^3",
         "tonne/m\u00b3",
+        "tonne/m^3",
         "t/m^3",
         "t/m\u00b3"
       ]
@@ -782,9 +791,16 @@
     "pound per cubic foot":[
       0.016018463,
       [
+        "lb/ft\u00b3",
         "lbs/ft^3",
-        "lb/ft^3",
-        "lb/ft\u00b3"
+        "lb/ft^3"
+      ]
+    ],
+    "pound per gallon":[
+      0.11982643,
+      [
+        "lbs/gal",
+        "lb/gal"
       ]
     ],
     "API degree":[
@@ -940,22 +956,22 @@
     "erg per square centimeter":[
       0.001,
       [
-        "erg/cm^2",
-        "erg/cm\u00b2"
+        "erg/cm\u00b2",
+        "erg/cm^2"
       ]
     ],
     "erg per square millimeter":[
       0.1,
       [
-        "erg/mm^2",
-        "erg/mm\u00b2"
+        "erg/mm\u00b2",
+        "erg/mm^2"
       ]
     ],
     "joule per square meter":[
       1.0,
       [
-        "j/m^2",
-        "j/m\u00b2"
+        "j/m\u00b2",
+        "j/m^2"
       ]
     ]
   },
@@ -1017,15 +1033,15 @@
     "kilogram per cubic meter":[
       1.0,
       [
-        "kg/m^3",
-        "kg/m\u00b3"
+        "kg/m\u00b3",
+        "kg/m^3"
       ]
     ],
     "gram per cubic meter":[
       0.001,
       [
-        "g/m^3",
-        "g/m\u00b3"
+        "g/m\u00b3",
+        "g/m^3"
       ]
     ],
     "part per million":[
