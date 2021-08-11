@@ -99,6 +99,17 @@ describe('nucos.sexagesimal2decimal', function(){
         assert.equal(nucos.sexagesimal2decimal(lon), 43.23423);
         assert.equal(nucos.sexagesimal2decimal(lat), -124.2334);
     });
+
+    it('should handle deg, min, sec with North and south', function(){
+        var lon = "24° 43' 30.16 West";
+        var lat = "58° 44' 43.97south";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
+        assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    });
+
+
+
 });
 
 describe('nucos.convert', function(){

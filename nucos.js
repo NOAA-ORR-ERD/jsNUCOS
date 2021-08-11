@@ -20,29 +20,52 @@
      * @return The decimal degree amount
     **/
     var sexagesimal2decimal = function(str){
+        /**
+         * This version mirrors what the Python version does
+         * https://github.com/NOAA-ORR-ERD/lat_lon_parser
+        **/
+
         str = str.trim();
-        var decimalReg = new RegExp(/^[\-]?\d*\.\d* ?[WNSE]?$/i);
-        var decData = decimalReg.exec(str);
-        if(decData){
-            return parseFloat(str);
+        str = str.toLowerCase();
+        str = str.replace("north", "n");
+        str = str.replace("south", "s");
+        str = str.replace("east", "e");
+        str = str.replace("west", "w");
+
+        // console.log("working with string:");
+
+        // change W and S to a negative value
+        negative = str.endsWith("w") || str.endsWith("s") ? -1 : 1;
+        // capture minus sign
+        negative = str.startsWith("-") ? -1 : negative;
+
+        // find the parts
+        var decimalReg = new RegExp(/[\d.]+/g);
+        var numbers = str.match(decimalReg);
+        var deg = 0; min = 0; sec = 0;
+
+        // console.log("numbers:", numbers);
+
+        if (numbers.length == 1) { // decimal degrees
+            deg = parseFloat(numbers[0]);
+        }
+        else if (numbers.length == 2) { // degrees, minutes
+            var deg = parseInt(numbers[0]);
+            var min = parseFloat(numbers[1]);
+        }
+        else if (numbers.length == 3) { // degrees, minutes, seconds
+            var deg = parseInt(numbers[0]);
+            var min = parseInt(numbers[1]);
+            var sec = parseFloat(numbers[2]);
         }
 
-        var regEx = new RegExp(sexagesimalPattern.value);
-        var data = regEx.exec(str);
-        var min = 0, sec = 0;
+        // console.log("deg, min, sec:", deg, min, sec)
 
-        if (data){
-            min = parseFloat(data[2]/60);
-            sec = parseFloat(data[4]/3600) || 0;
-        }
-
-        var dec;
-        if (parseFloat(data[1]) > 0){
-            dec = ((parseFloat(data[1]) + min + sec)).toFixed(8);
-        } else {
-            dec = ((parseFloat(data[1]) - min - sec)).toFixed(8);
-        }
-        dec = (['s', 'S', 'w', 'W'].indexOf(data[7]) !== -1) ? parseFloat(-dec) : parseFloat(dec);
+        var dec = deg + (min / 60) + (sec / 3600);
+        // set the sign
+        dec = (Math.sign(dec) == Math.sign(negative)) ? dec : -dec;
+        // to make testing easier?
+        dec = dec.toFixed(8)
 
         return dec;
     };
