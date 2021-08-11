@@ -1,11 +1,11 @@
 var assert = require('assert');
 
 describe('nucos', function(){
-    it('should import with amd', function(){
-        var requirejs = require('requirejs');
-        var n_test = requirejs('/../nucos.js');
-        assert.notEqual(n_test, undefined);
-    });
+    // it('should import with amd', function(){
+    //     var requirejs = require('requirejs');
+    //     var n_test = requirejs('/../nucos.js');
+    //     assert.notEqual(n_test, undefined);
+    // });
 
     it('should import with commonjs', function(){
         var n_test = require('../nucos');
@@ -15,6 +15,12 @@ describe('nucos', function(){
 
 var nucos = require('../nucos');
 describe('nucos.sexagesimal2decimal', function(){
+    it('should fail with completely bad input', function(){
+        var lon = "random text";
+        assert.equal(nucos.sexagesimal2decimal(lon), 24.72504444);
+    });
+
+
     it('should convert lat long into decimal', function(){
         var lon = "24° 43' 30.16\"";
         var lat = "58° 44' 43.97\"";
@@ -106,44 +112,46 @@ describe('nucos.sexagesimal2decimal', function(){
 
         assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
         assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    // Additional tests from the Python version
+
     });
 
 
 
 });
 
-describe('nucos.convert', function(){
-    it('should convert same unit density', function(){
-        assert.equal(nucos.convert("Density", "API degree", "kg/m^3", 10), 999.13);
-    });
+// describe('nucos.convert', function(){
+//     it('should convert same unit density', function(){
+//         assert.equal(nucos.convert("Density", "API degree", "kg/m^3", 10), 999.13);
+//     });
 
-    it('should parse unicode exponents', function(){
-        assert.equal(nucos.convert('Density', 'API degree', 'kg/m³', 10), 999.13);
-    });
+//     it('should parse unicode exponents', function(){
+//         assert.equal(nucos.convert('Density', 'API degree', 'kg/m³', 10), 999.13);
+//     });
 
-    it('should convert Concentration', function(){
-        assert.equal(nucos.convert('Concentration', 'ppm', 'fraction', 1.0), 1e-6);
-    });
-
-    it('should convert Interfacial Tension', function(){
-        assert.equal(nucos.convert('InterfacialTension', 'N/m', 'dyn/cm', 1.0), 1e3);
-    });
-
-
-// describe('nocos.convert', function(){
 //     it('should convert Concentration', function(){
-//         assert.equal(nucos.Convert("Concentration", "ppm", "fraction", 1.0), 1e-6);
+//         assert.equal(nucos.convert('Concentration', 'ppm', 'fraction', 1.0), 1e-6);
+//     });
+
+//     it('should convert Interfacial Tension', function(){
+//         assert.equal(nucos.convert('InterfacialTension', 'N/m', 'dyn/cm', 1.0), 1e3);
 //     });
 
 
-});
-
-describe('nocos.OilQuantityConverter', function(){
-    it('should convert oil quantity between volume and mass', function(){
-        var oc = new nucos.OilQuantityConverter();
-        assert.equal(oc.Convert(50, "tons", 10, "API degree", "cubic meters"), 45.39873389849169);
-    });
+// // describe('nucos.convert', function(){
+// //     it('should convert Concentration', function(){
+// //         assert.equal(nucos.Convert("Concentration", "ppm", "fraction", 1.0), 1e-6);
+// //     });
 
 
-});
+// });
+
+// describe('nucos.OilQuantityConverter', function(){
+//     it('should convert oil quantity between volume and mass', function(){
+//         var oc = new nucos.OilQuantityConverter();
+//         assert.equal(oc.Convert(50, "tons", 10, "API degree", "cubic meters"), 45.39873389849169);
+//     });
+
+
+// });
 
