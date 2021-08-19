@@ -285,6 +285,13 @@
         "cc"
       ]
     ],
+    "milliliter":[
+      1e-06,
+      [
+        "ml",
+        "milliters"
+      ]
+    ],
     "barrel (petroleum)":[
       0.1589873,
       [
@@ -1292,6 +1299,13 @@
       [
         "\u00b5g/g",
         "ug/g"
+      ]
+    ],
+    "nanogram per gram":[
+      1e-09,
+      [
+        "ng/g",
+        "nanograms per gram"
       ]
     ]
   },
