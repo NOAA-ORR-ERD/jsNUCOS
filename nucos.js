@@ -20,32 +20,78 @@
      * @return The decimal degree amount
     **/
     var sexagesimal2decimal = function(str){
+        /**
+         * This version mirrors what the Python version does
+         * https://github.com/NOAA-ORR-ERD/lat_lon_parser
+        **/
+
         str = str.trim();
-        var decimalReg = new RegExp(/^[\-]?\d*\.\d* ?[WNSE]?$/i);
-        var decData = decimalReg.exec(str);
-        if(decData){
-            return parseFloat(str);
+        str = str.toLowerCase();
+        str = str.replace("north", "n");
+        str = str.replace("south", "s");
+        str = str.replace("east", "e");
+        str = str.replace("west", "w");
+
+        // console.log("working with string:", str);
+
+        // change W and S to a negative value
+        negative = str.endsWith("w") || str.endsWith("s") ? -1 : 1;
+        // capture minus sign
+        negative = str.startsWith("-") ? -1 : negative;
+
+        // find the parts
+        var decimalReg = new RegExp(/[\d.]+/g);
+        var numbers = str.match(decimalReg);
+        // console.log("numbers as text", numbers);
+
+        var deg = 0.0;
+        var min = 0.0;
+        var sec = 0.0;
+        if (numbers.length == 1) { // decimal degrees
+            deg = Number(numbers[0]);
+        }
+        else if (numbers.length == 2) { // degrees, minutes
+            deg = Number(numbers[0]);
+            if (!Number.isInteger(deg)){
+                throw "Value Error: Degrees must be an integer if minutes are there";
+            }
+            min = Number(numbers[1]);
+        }
+        else if (numbers.length === 3) { // degrees, minutes, seconds
+            deg = Number(numbers[0]);
+            if (!Number.isInteger(deg)){
+                throw "Value Error: Degrees must be an integer if minutes are there";
+            }
+            min = Number(numbers[1]);
+            if (!Number.isInteger(min)){
+                throw "Value Error: Minutes must be an integer if seconds are there.";
+            }
+            sec = Number(numbers[2]);
         }
 
-        var regEx = new RegExp(sexagesimalPattern.value);
-        var data = regEx.exec(str);
-        var min = 0, sec = 0;
+        // console.log("deg, min, sec:", deg, min, sec)
 
-        if (data){
-            min = parseFloat(data[2]/60);
-            sec = parseFloat(data[4]/3600) || 0;
+        if (deg > 180){
+            throw "Degrees can not be greater than 180"
         }
-
-        var dec;
-        if (parseFloat(data[1]) > 0){
-            dec = ((parseFloat(data[1]) + min + sec)).toFixed(8);
-        } else {
-            dec = ((parseFloat(data[1]) - min - sec)).toFixed(8);
+        if ((min > 60) || (sec > 60)){
+            throw "Minutes and seconds can not be greater than 60"
         }
-        dec = (['s', 'S', 'w', 'W'].indexOf(data[7]) !== -1) ? parseFloat(-dec) : parseFloat(dec);
-
+        var dec = deg + (min / 60) + (sec / 3600);
+        // set the sign
+        dec = (Math.sign(dec) === Math.sign(negative)) ? dec : -dec;
+        // console.log("final value:", dec)
+        // console.log(Number.isNaN(dec))
+        if (Number.isNaN(dec)){
+            throw "Value Error: invalid numbers";
+        }
+        // This used to return a string, which seems like a bad idea.
+        // but rounding makes tests easier ??
+        dec = Number(dec.toFixed(8))
         return dec;
     };
+
+
 
     /**
      * Method used to calculate the total duration of an in-situ burn

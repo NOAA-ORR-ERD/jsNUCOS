@@ -14,7 +14,36 @@ describe('nucos', function(){
 });
 
 var nucos = require('../nucos');
+
 describe('nucos.sexagesimal2decimal', function(){
+
+    // Bad input of various sorts
+    it('Should fail with bad input', function(){
+        assert.throws(() => nucos.sexagesimal2decimal("some_crap"));
+    });
+
+    it('Should fail with empty string', function(){
+        assert.throws(() => nucos.sexagesimal2decimal(""));
+    });
+
+    // Bad input of various sorts
+    it('Should fail with multiple decimal points', function(){
+        assert.throws(() => nucos.sexagesimal2decimal("23.43.2"));
+    });
+
+    // Bad input of various sorts
+    it('Should fail with decimal in more than one field', function(){
+        assert.throws(() => nucos.sexagesimal2decimal("23.4 14.2"));
+    });
+
+    it('Should fail with too large values', function(){
+        assert.throws(() => nucos.sexagesimal2decimal("92 92"));
+    });
+
+    it('Should fail with too large values', function(){
+        assert.throws(() => nucos.sexagesimal2decimal("3° 25' 61.0\" N"));
+    });
+
     it('should convert lat long into decimal', function(){
         var lon = "24° 43' 30.16\"";
         var lat = "58° 44' 43.97\"";
@@ -45,6 +74,46 @@ describe('nucos.sexagesimal2decimal', function(){
 
         assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
         assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    });
+
+    it('should convert to a negative w/ West and South', function(){
+        var lon = "24° 43' 30.16\"  West";
+        var lat = "58° 44' 43.97\"south";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
+        assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    });
+
+    it('should convert with a leading zero', function(){
+        var lon = "024° 43' 30.16\"w";
+        var lat = "058° 44' 43.97\"s";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
+        assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    });
+
+    it('should convert with space between - and number', function(){
+        var lon = "- 024° 43' 30.16\"w";
+        var lat = "  -  58.74554722  ";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
+        assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    });
+
+    it('should convert with minus as separator', function(){
+        var lon = "24-43-30.16\"w";
+        var lat = "-58 - 44 - 43.97";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
+        assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    });
+
+    it('should convert with verbose and letters', function(){
+        var lon = "15d 55m 20s south";
+        var lat = "15° 55′ 20\" north";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), -15.92222222);
+        assert.equal(nucos.sexagesimal2decimal(lat), 15.92222222);
     });
 
     it('should convert to a negative w/ w and s', function(){
@@ -99,6 +168,19 @@ describe('nucos.sexagesimal2decimal', function(){
         assert.equal(nucos.sexagesimal2decimal(lon), 43.23423);
         assert.equal(nucos.sexagesimal2decimal(lat), -124.2334);
     });
+
+    it('should handle deg, min, sec with North and south', function(){
+        var lon = "24° 43' 30.16 West";
+        var lat = "58° 44' 43.97south";
+
+        assert.equal(nucos.sexagesimal2decimal(lon), -24.72504444);
+        assert.equal(nucos.sexagesimal2decimal(lat), -58.74554722);
+    // Additional tests from the Python version
+
+    });
+
+
+
 });
 
 describe('nucos.convert', function(){
@@ -119,7 +201,7 @@ describe('nucos.convert', function(){
     });
 
 
-// describe('nocos.convert', function(){
+// describe('nucos.convert', function(){
 //     it('should convert Concentration', function(){
 //         assert.equal(nucos.Convert("Concentration", "ppm", "fraction", 1.0), 1e-6);
 //     });
@@ -127,7 +209,7 @@ describe('nucos.convert', function(){
 
 });
 
-describe('nocos.OilQuantityConverter', function(){
+describe('nucos.OilQuantityConverter', function(){
     it('should convert oil quantity between volume and mass', function(){
         var oc = new nucos.OilQuantityConverter();
         assert.equal(oc.Convert(50, "tons", 10, "API degree", "cubic meters"), 45.39873389849169);
