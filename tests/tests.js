@@ -185,11 +185,11 @@ describe('nucos.sexagesimal2decimal', function(){
 
 describe('nucos.convert', function(){
     it('should convert same unit density', function(){
-        assert.equal(nucos.convert("Density", "API degree", "kg/m^3", 10), 999.13);
+        assert.equal(nucos.convert("Density", "API degree", "kg/m^3", 10), 999.016);
     });
 
     it('should parse unicode exponents', function(){
-        assert.equal(nucos.convert('Density', 'API degree', 'kg/m³', 10), 999.13);
+        assert.equal(nucos.convert('Density', 'API degree', 'kg/m³', 10), 999.016);
     });
 
     it('should convert Concentration', function(){
@@ -212,7 +212,7 @@ describe('nucos.convert', function(){
 describe('nucos.OilQuantityConverter', function(){
     it('should convert oil quantity between volume and mass', function(){
         var oc = new nucos.OilQuantityConverter();
-        assert.equal(oc.Convert(50, "tons", 10, "API degree", "cubic meters"), 45.39873389849169);
+        assert.equal(oc.Convert(50, "tons", 10, "API degree", "cubic meters"), 45.4039144518206);
     });
 
 
