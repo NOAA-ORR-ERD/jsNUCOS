@@ -200,11 +200,6 @@ describe('nucos.convert', function(){
         assert.equal(nucos.convert('InterfacialTension', 'N/m', 'dyn/cm', 1.0), 1e3);
     });
 
-    it('should convert Concentration', function(){
-        assert.equal(nucos.convert("Concentration", "ppm", "fraction", 1.0), 1e-6);
-    });
-
-
 });
 
 describe('nucos.OilQuantityConverter', function(){

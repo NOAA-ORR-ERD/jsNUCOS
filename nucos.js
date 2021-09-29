@@ -1424,11 +1424,8 @@ var unitDict =
 };
 
 // END UNIT_DICT DECLARATION
-    //
 
-    var sexagesimalPattern = {
-        value: /^(-?[0-9]{1,3})\°*\s*([0-9]{1,3}(?:\.*(?:[0-9]{1,}))?)[\'\`]*\s*(([0-9]{1,3}(\.([0-9]{1,}))?)\"*\s*)?([NEOSW]?)$/i
-    };
+    var decimalReg = new RegExp(/[\d.]+/g);
 
     /**
      * @param str String that is parsed to determine the decimal degree value
@@ -1447,17 +1444,14 @@ var unitDict =
         str = str.replace("east", "e");
         str = str.replace("west", "w");
 
-        // console.log("working with string:", str);
-
         // change W and S to a negative value
         negative = str.endsWith("w") || str.endsWith("s") ? -1 : 1;
         // capture minus sign
         negative = str.startsWith("-") ? -1 : negative;
 
         // find the parts
-        var decimalReg = new RegExp(/[\d.]+/g);
+        // var decimalReg = new RegExp(/[\d.]+/g);
         var numbers = str.match(decimalReg);
-        // console.log("numbers as text", numbers);
 
         var deg = 0.0;
         var min = 0.0;
@@ -1484,8 +1478,6 @@ var unitDict =
             sec = Number(numbers[2]);
         }
 
-        // console.log("deg, min, sec:", deg, min, sec)
-
         if (deg > 180){
             throw "Degrees can not be greater than 180"
         }
@@ -1494,9 +1486,7 @@ var unitDict =
         }
         var dec = deg + (min / 60) + (sec / 3600);
         // set the sign
-        dec = (Math.sign(dec) === Math.sign(negative)) ? dec : -dec;
-        // console.log("final value:", dec)
-        // console.log(Number.isNaN(dec))
+        dec = (Math.sign(dec) === Math.sign(negative)) ? dec : -dec ;
         if (Number.isNaN(dec)){
             throw "Value Error: invalid numbers";
         }
