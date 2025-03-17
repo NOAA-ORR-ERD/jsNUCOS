@@ -67,7 +67,7 @@ var unitDict =
     "yard":[
       0.9144,
       [
-        "yrd",
+        "yd",
         "yards"
       ]
     ],
@@ -157,8 +157,8 @@ var unitDict =
     "liter per hectare":[
       0.1,
       [
-        "liter/hectare",
-        "l/hectare"
+        "l/hectare",
+        "liter/hectare"
       ]
     ],
     "liter per square meter":[
@@ -265,8 +265,8 @@ var unitDict =
     "hectare":[
       10000.0,
       [
-        "hectares",
-        "ha"
+        "ha",
+        "hectares"
       ]
     ]
   },
@@ -339,8 +339,8 @@ var unitDict =
     "million US gallon":[
       3785.4118,
       [
-        "milliongallons",
-        "milgal"
+        "milgal",
+        "milliongallons"
       ]
     ],
     "cubic foot":[
@@ -497,20 +497,23 @@ var unitDict =
         "ug"
       ]
     ],
-    "ton":[
+    "ton (US)":[
       907.18474,
       [
+        "ton",
         "tons",
-        "uston"
+        "uston",
+        "short ton"
       ]
     ],
     "metric ton (tonne)":[
       1000.0,
       [
+        "mt",
+        "tonne",
         "tonnes",
         "metric ton",
-        "metric tons",
-        "mt"
+        "metric tons"
       ]
     ],
     "slug":[
@@ -570,12 +573,19 @@ var unitDict =
       1.0,
       [
         "m/s",
+        "meter/sec",
+        "meter/second",
         "meters per second",
         "mps",
+        "meter sec-1",
         "meter second-1",
-        "meters s-1",
+        "meter seconds-1",
+        "meters sec-1",
+        "meters second-1",
+        "meters seconds-1",
         "m s-1",
-        "meter/sec"
+        "meter s-1",
+        "meters s-1"
       ]
     ],
     "centimeter per second":[
@@ -608,6 +618,8 @@ var unitDict =
     "knot":[
       0.514444,
       [
+        "kt",
+        "kn",
         "kts",
         "knots"
       ]
@@ -819,8 +831,8 @@ var unitDict =
     "pound per gallon":[
       0.11982643,
       [
-        "lbs/gal",
-        "lb/gal"
+        "lb/gal",
+        "lbs/gal"
       ]
     ],
     "API degree":[
@@ -1023,9 +1035,7 @@ var unitDict =
     ],
     "bar":[
       100000.0,
-      [
-        "bars"
-      ]
+      []
     ],
     "millibar":[
       100.0,
@@ -1242,6 +1252,20 @@ var unitDict =
         "ppt",
         "parts per thousand"
       ]
+    ],
+    "part per million":[
+      1e-06,
+      [
+        "ppm",
+        "parts per million"
+      ]
+    ],
+    "part per billion":[
+      1e-09,
+      [
+        "ppb",
+        "parts per billion"
+      ]
     ]
   },
   "Mass Fraction":{
@@ -1364,6 +1388,7 @@ var unitDict =
     "part per trillion":[
       1e-12,
       [
+        "pptril",
         "parts per trillion"
       ]
     ],
@@ -1371,31 +1396,29 @@ var unitDict =
       0.001,
       [
         "ml/l",
-        "mL/L",
         "mL/dm^3"
       ]
     ],
     "liter per cubic meter":[
       0.001,
       [
-        "l/m^3",
-        "L/m^3"
+        "l/m^3"
       ]
     ]
   },
   "Angular Measure":{
-    "radians":[
+    "radian":[
       1.0,
       [
-        "radian",
-        "rad"
+        "rad",
+        "radians"
       ]
     ],
-    "degrees":[
+    "degree":[
       0.017453292519943295,
       [
-        "degree",
-        "deg"
+        "deg",
+        "degrees"
       ]
     ]
   },
@@ -1414,10 +1437,10 @@ var unitDict =
         "cycles/sec"
       ]
     ],
-    "rpm":[
+    "rotations per minute":[
       0.10471975511965977,
       [
-        "rotations per minute"
+        "rpm"
       ]
     ]
   }
