@@ -1451,91 +1451,6 @@ var unitDict =
     var decimalReg = new RegExp(/[\d.]+/g);
 
     /**
-     * @param str String that is parsed to determine the decimal degree value
-     * @return The decimal degree amount
-    **/
-    var sexagesimal2decimal = function(str){
-        /**
-         * This version mirrors what the Python version does
-         * https://github.com/NOAA-ORR-ERD/lat_lon_parser
-        **/
-
-        str = str.trim();
-        str = str.toLowerCase();
-        str = str.replace("north", "n");
-        str = str.replace("south", "s");
-        str = str.replace("east", "e");
-        str = str.replace("west", "w");
-
-        // change W and S to a negative value
-        negative = str.endsWith("w") || str.endsWith("s") ? -1 : 1;
-        // capture minus sign
-        negative = str.startsWith("-") ? -1 : negative;
-
-        // find the parts
-        // var decimalReg = new RegExp(/[\d.]+/g);
-        var numbers = str.match(decimalReg);
-
-        var deg = 0.0;
-        var min = 0.0;
-        var sec = 0.0;
-        if (numbers.length == 1) { // decimal degrees
-            deg = Number(numbers[0]);
-        }
-        else if (numbers.length == 2) { // degrees, minutes
-            deg = Number(numbers[0]);
-            if (!Number.isInteger(deg)){
-                throw "Value Error: Degrees must be an integer if minutes are there";
-            }
-            min = Number(numbers[1]);
-        }
-        else if (numbers.length === 3) { // degrees, minutes, seconds
-            deg = Number(numbers[0]);
-            if (!Number.isInteger(deg)){
-                throw "Value Error: Degrees must be an integer if minutes are there";
-            }
-            min = Number(numbers[1]);
-            if (!Number.isInteger(min)){
-                throw "Value Error: Minutes must be an integer if seconds are there.";
-            }
-            sec = Number(numbers[2]);
-        }
-
-        if (deg > 180){
-            throw "Degrees can not be greater than 180"
-        }
-        if ((min > 60) || (sec > 60)){
-            throw "Minutes and seconds can not be greater than 60"
-        }
-        var dec = deg + (min / 60) + (sec / 3600);
-        // set the sign
-        dec = (Math.sign(dec) === Math.sign(negative)) ? dec : -dec ;
-        if (Number.isNaN(dec)){
-            throw "Value Error: invalid numbers";
-        }
-        // This used to return a string, which seems like a bad idea.
-        // but rounding makes tests easier ??
-        dec = Number(dec.toFixed(8))
-        return dec;
-    };
-
-
-
-    /**
-     * Method used to calculate the total duration of an in-situ burn
-     *
-     * @param thickness The initial thickness of the oil
-     *                  immediately preceding the burn in meters
-     * @param waterFract The emulsion water fraction value associated with
-     *                   the burned oil between 0 and 1
-     * @return The time duration in seconds for how long the burn will take
-     *         to complete
-    **/
-    var _BurnDuration = function(thickness, waterFract){
-        return (thickness - 0.002) / (0.000058 * (1 - waterFract));
-    };
-
-    /**
     *
     * Modifies The string with the whitespace and capitalization removed.
     * Also treats the '.' as a space.
@@ -1551,12 +1466,8 @@ var unitDict =
     * @return a list of all the unit types available
     * a unit type is something like "mass", "velocity", etc.
     **/
-    var _GetUnitTypes = function(){
-        var keysArray = [];
-        for (var key in unitDict){
-            keysArray.push(key);
-        }
-        return keysArray;
+    var _GetUnitTypes = function() {
+        return Object.keys(unitDict);
     };
 
     /**
@@ -1593,7 +1504,7 @@ var unitDict =
                 continue;
             }
             for (var primaryName in unitDict[unitType]){
-                var pname = primaryName;
+                var pname = _Simplify(primaryName);
                 unitTypes[pname] = unitType;
                 for (var key in unitDict[unitType]){
                     for (var k = 0; k < unitDict[unitType][key][1].length; k++){
@@ -1608,12 +1519,42 @@ var unitDict =
         return unitTypes;
     };
 
+    var _GetPrimaryName = function(unit, unitType) {
+        Object.entries(
+            (unitDict[unitType] || {})
+        ).forEach(([verboseUnit, props]) => {
+            synonyms = props[1] || [];
+
+            if (synonyms.includes(unit)) {
+                unit = synonyms[0];
+            }
+        });
+    
+        return unit;
+    }
+
+    var GetAbbreviation = function(unit, unitType) {
+        simple_unit = _Simplify(unit);
+
+        if (unitType === undefined) {
+            unitType = unitMap[simple_unit];
+        }
+        else {
+            unitType = _Simplify(unitType);
+        }
+
+        unit = _GetPrimaryName(unit, unitType);
+
+        return (((unitDict[unitType] || {})[unit] || [])[1] || [])[0] || unit;
+    };
+
     /**
     * @param unitType the type of unit: "mass", "length", etc.
     * @param unit the unit you want the abbreviation for: "gram", etc.
     * @return the standard abbreviation for a given unit
+    * @deprecated Use GetAbbreviation() instead
     **/
-    var _GetUnitAbbreviation = function(unitType, unit){
+    var _GetUnitAbbreviation = function(unitType, unit) {
         return unitDict[unitType][unit][1][0];
     };
 
@@ -1818,31 +1759,93 @@ var unitDict =
         };
     };
 
-    var waterDensity = function(){
+    /**
+     * @param str String that is parsed to determine the decimal degree value
+     * @return The decimal degree amount
+    **/
+    var sexagesimal2decimal = function(str){
+        /**
+         * This version mirrors what the Python version does
+         * https://github.com/NOAA-ORR-ERD/lat_lon_parser
+         *
+         * TODO: Maybe we should have a separate lat_lon_parser npm package?
+        **/
 
-        var calcRho = function(temp){
-            var rho;
-            rho = 1000 * (1.0 - (temp + 288.9414) / (508929.2 * (temp + 68.12963)) * (Math.pow(temp - 3.9863, 2)));
-            return rho;
-        };
+        str = str.trim();
+        str = str.toLowerCase();
+        str = str.replace("north", "n");
+        str = str.replace("south", "s");
+        str = str.replace("east", "e");
+        str = str.replace("west", "w");
 
-        var calcRhos = function(rho, conc, temp){
-            var rhos, coeffA, coeffB;
-            coeffA = 0.824493 - 0.0040899 * temp + 0.000076438 * Math.pow(temp,2) - 0.00000082467 * Math.pow(temp,3) + 0.0000000053675 * Math.pow(temp,4);
-            coeffB = -0.005724 + 0.00010227 * temp - 0.0000016546 * Math.pow(temp,2);
-            rhos = rho + coeffA * conc + coeffB * Math.pow(conc, (3/2)) + 0.00048314 * Math.pow(conc, 2);
-            return rhos;
-        };
+        // change W and S to a negative value
+        negative = str.endsWith("w") || str.endsWith("s") ? -1 : 1;
+        // capture minus sign
+        negative = str.startsWith("-") ? -1 : negative;
 
-        var calcDensity = function(temp, conc){
-            var rho = calcRho(temp);
-            var rhos = calcRhos(rho, conc, temp);
-            return rhos;
-        };
+        // find the parts
+        // var decimalReg = new RegExp(/[\d.]+/g);
+        var numbers = str.match(decimalReg);
 
-        return {
-            calcDensity: calcDensity
-        };
+        var deg = 0.0;
+        var min = 0.0;
+        var sec = 0.0;
+        if (numbers.length == 1) { // decimal degrees
+            deg = Number(numbers[0]);
+        }
+        else if (numbers.length == 2) { // degrees, minutes
+            deg = Number(numbers[0]);
+            if (!Number.isInteger(deg)){
+                throw "Value Error: Degrees must be an integer if minutes are there";
+            }
+            min = Number(numbers[1]);
+        }
+        else if (numbers.length === 3) { // degrees, minutes, seconds
+            deg = Number(numbers[0]);
+            if (!Number.isInteger(deg)){
+                throw "Value Error: Degrees must be an integer if minutes are there";
+            }
+            min = Number(numbers[1]);
+            if (!Number.isInteger(min)){
+                throw "Value Error: Minutes must be an integer if seconds are there.";
+            }
+            sec = Number(numbers[2]);
+        }
+
+        if (deg > 180){
+            throw "Degrees can not be greater than 180"
+        }
+        if ((min > 60) || (sec > 60)){
+            throw "Minutes and seconds can not be greater than 60"
+        }
+        var dec = deg + (min / 60) + (sec / 3600);
+        // set the sign
+        dec = (Math.sign(dec) === Math.sign(negative)) ? dec : -dec ;
+        if (Number.isNaN(dec)){
+            throw "Value Error: invalid numbers";
+        }
+        // This used to return a string, which seems like a bad idea.
+        // but rounding makes tests easier ??
+        dec = Number(dec.toFixed(8))
+        return dec;
+    };
+
+    /**
+     * Method used to calculate the total duration of an in-situ burn
+     *
+     * @param thickness The initial thickness of the oil
+     *                  immediately preceding the burn in meters
+     * @param waterFract The emulsion water fraction value associated with
+     *                   the burned oil between 0 and 1
+     * @return The time duration in seconds for how long the burn will take
+     *         to complete
+     *
+     * TODO: Is anything besides webgnomeclient using this?  Maybe it should
+     *       go into the webgnomeclient code.  It does not seem to have
+     *       much to do with unit conversion.
+    **/
+    var _BurnDuration = function(thickness, waterFract){
+        return (thickness - 0.002) / (0.000058 * (1 - waterFract));
     };
 
     var rayleighDist = function(){
@@ -1878,9 +1881,37 @@ var unitDict =
 
     };
 
+    var waterDensity = function(){
+
+        var calcRho = function(temp){
+            var rho;
+            rho = 1000 * (1.0 - (temp + 288.9414) / (508929.2 * (temp + 68.12963)) * (Math.pow(temp - 3.9863, 2)));
+            return rho;
+        };
+
+        var calcRhos = function(rho, conc, temp){
+            var rhos, coeffA, coeffB;
+            coeffA = 0.824493 - 0.0040899 * temp + 0.000076438 * Math.pow(temp,2) - 0.00000082467 * Math.pow(temp,3) + 0.0000000053675 * Math.pow(temp,4);
+            coeffB = -0.005724 + 0.00010227 * temp - 0.0000016546 * Math.pow(temp,2);
+            rhos = rho + coeffA * conc + coeffB * Math.pow(conc, (3/2)) + 0.00048314 * Math.pow(conc, 2);
+            return rhos;
+        };
+
+        var calcDensity = function(temp, conc){
+            var rho = calcRho(temp);
+            var rhos = calcRhos(rho, conc, temp);
+            return rhos;
+        };
+
+        return {
+            calcDensity: calcDensity
+        };
+    };
+
     var nucos = {
         _Simplify: _Simplify,
         _GetUnitTypes: _GetUnitTypes,
+        GetAbbreviation: GetAbbreviation,
         OilQuantityConverter: OilQuantityConverter,
         Converters: Converters,
         convert: convert,
@@ -1891,4 +1922,3 @@ var unitDict =
     };
     return nucos;
 }));
-
