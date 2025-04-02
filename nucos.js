@@ -1458,7 +1458,7 @@ var unitDict =
     * @param str String that is manipulated
     * @return The simplified string
     **/
-    var _Simplify = function(str){
+    var _Simplify = function(str) {
         return str.toLowerCase().replace('.' , ' ').split(' ').join('');
     };
 
@@ -1476,39 +1476,31 @@ var unitDict =
     * a unit type is something like "mass" while a unit of mass
     * would be "kilogram", "slug", etc.
     **/
-    var _GetUnitNames = function(unitType){
-        var namesArray = [];
-        for (var key in unitDict[unitType]){
-            namesArray.push(key);
-        }
-        return namesArray;
+    var _GetUnitNames = function(unitType) {
+        return Object.keys(unitDict[unitType]);
     };
 
-    var _items = function(obj){
-        var itemsArray = [];
-        for (var key in obj){
-            itemsArray.push(obj[key]);
-        }
-        return itemsArray;
+    var _items = function(obj) {
+        return Object.keys(obj);
     };
 
     /**
     * @return a mapping of all the unit names to the unit types
     **/
-    var _FindUnitTypes = function(){
+    var _FindUnitTypes = function() {
         var unitTypes = {};
         var unitKeys = _GetUnitTypes();
-        for (var i = 0; i < unitKeys.length; i++){
+        for (var i = 0; i < unitKeys.length; i++) {
             var unitType = unitKeys[i];
             if (unitType === "Oil Concentration" || unitType === "Concentration In Water"){
                 continue;
             }
-            for (var primaryName in unitDict[unitType]){
+            for (var primaryName in unitDict[unitType]) {
                 var pname = _Simplify(primaryName);
                 unitTypes[pname] = unitType;
-                for (var key in unitDict[unitType]){
-                    for (var k = 0; k < unitDict[unitType][key][1].length; k++){
-                        if (unitType === "Volume" && unitDict[unitType][key][1][k] === "oz"){
+                for (var key in unitDict[unitType]) {
+                    for (var k = 0; k < unitDict[unitType][key][1].length; k++) {
+                        if (unitType === "Volume" && unitDict[unitType][key][1][k] === "oz") {
                             continue;
                         }
                         unitTypes[unitDict[unitType][key][1][k]] = unitType;
@@ -1563,18 +1555,18 @@ var unitDict =
     * @param unit2 string of unit to compare
     * @return boolean showing if the units are synonyms or not
     **/
-    var _isSameUnit = function(unit1, unit2){
+    var _isSameUnit = function(unit1, unit2) {
         var allTypes = FindUnitTypes();
         var typeOne = allTypes[unit1];
         var typeTwo = allTypes[unit2];
         if (typeOne !== typeTwo){
             return false;
         } else {
-
+            return true;
         }
     };
 
-    var ConverterClass = function(TypeName, UnitsDict){
+    var ConverterClass = function(TypeName, UnitsDict) {
         this.Name = TypeName;
         this.Synonyms = {};
         this.Convertdata = {};
@@ -1585,7 +1577,7 @@ var unitDict =
         // ['degrees', ((1.0, 273.15), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
 
         var dataDict = [];
-        for (var unitTerm in UnitsDict){
+        for (var unitTerm in UnitsDict) {
             dataDict.push([unitTerm, UnitsDict[unitTerm]]);
         }
 
@@ -1606,7 +1598,7 @@ var unitDict =
             });
         });
 
-        this.Convert = function(FromUnit, ToUnit, Value){
+        this.Convert = function(FromUnit, ToUnit, Value) {
             var fromUnit = _Simplify(FromUnit);
             var toUnit = _Simplify(ToUnit);
             var value = Value;
@@ -1617,9 +1609,9 @@ var unitDict =
         };
     };
 
-    var DensityConverterClass = function(TypeName, UnitsDict){
+    var DensityConverterClass = function(TypeName, UnitsDict) {
         ConverterClass.call(this, TypeName, UnitsDict);
-        this.Convert = function(FromUnit, ToUnit, Value){
+        this.Convert = function(FromUnit, ToUnit, Value) {
             var fromUnit = _Simplify(FromUnit);
             var toUnit = _Simplify(ToUnit);
             var value = Value;
@@ -1627,15 +1619,19 @@ var unitDict =
 
             toUnit = this.Synonyms[toUnit];
             fromUnit = this.Synonyms[fromUnit];
-            if (fromUnit === "apidegree"){
+
+            if (fromUnit === "apidegree") {
                 value = 141.5 / (value + 131.5);
                 fromUnit = "specificgravity(15\xb0c)";
             }
-            if (toUnit === "apidegree"){
+
+            if (toUnit === "apidegree") {
                 toVal = 141.5 / (value * this.Convertdata[fromUnit] / this.Convertdata["specificgravity(15\xb0c)"]) - 131.5;
-            } else {
+            }
+            else {
                 toVal = value * this.Convertdata[fromUnit] / this.Convertdata[toUnit];
             }
+
             return toVal;
         };
     };
@@ -1644,9 +1640,9 @@ var unitDict =
 
     DensityConverterClass.prototype.constructor = DensityConverterClass;
 
-    var TempConverterClass = function(TypeName, UnitsDict){
+    var TempConverterClass = function(TypeName, UnitsDict) {
         ConverterClass.call(this, TypeName, UnitsDict);
-        this.Convert = function(FromUnit, ToUnit, Value){
+        this.Convert = function(FromUnit, ToUnit, Value) {
             var fromUnit = _Simplify(FromUnit);
             var toUnit = _Simplify(ToUnit);
 
@@ -1673,7 +1669,7 @@ var unitDict =
     var Converters = {};
     var dataDict = [];
 
-    for (var unitType in unitDict){
+    for (var unitType in unitDict) {
         dataDict.push([unitType, unitDict[unitType]]);
     }
 
@@ -1691,7 +1687,7 @@ var unitDict =
         }
     });
 
-    var convert = function(UnitType, FromUnit, ToUnit, Value){
+    var convert = function(UnitType, FromUnit, ToUnit, Value) {
         var unitType = _Simplify(UnitType);
         var Converter = Converters[unitType];
         return Converter.Convert(FromUnit, ToUnit, Value);
@@ -1703,8 +1699,7 @@ var unitDict =
     * class for Oil Quantity conversion -- mass to/from Volume
     * requires density info as well
     **/
-    var OilQuantityConverter = function(){
-
+    var OilQuantityConverter = function() {
         /**
         * @param fromAmount: The amount of the substance you are converting from
         * @param fromUnit: The unit of the amount you are converting from
@@ -1712,14 +1707,15 @@ var unitDict =
         * @param DensityUnits: The units of the density the user provided
         * @param toUnit: The units the user would like to see the amount returned in
         **/
-        var Convert = function(fromAmount, fromUnit, Density, DensityUnits, toUnit){
-            if (unitMap[fromUnit] !== unitMap[toUnit]){
-                if (unitMap[fromUnit] === "Volume" && unitMap[toUnit] === "Mass"){
+        var Convert = function(fromAmount, fromUnit, Density, DensityUnits, toUnit) {
+            if (unitMap[fromUnit] !== unitMap[toUnit]) {
+                if (unitMap[fromUnit] === "Volume" && unitMap[toUnit] === "Mass") {
                     return ToMass(fromAmount, fromUnit, Density, DensityUnits, toUnit);
-                } else if (unitMap[fromUnit] === "Mass" && unitMap[toUnit] === "Volume"){
+                } else if (unitMap[fromUnit] === "Mass" && unitMap[toUnit] === "Volume") {
                     return ToVolume(fromAmount, fromUnit, Density, DensityUnits, toUnit);
                 }
-            } else {
+            }
+            else {
                 return convert(unitMap[fromUnit], fromUnit, toUnit, fromAmount);
             }
         };
@@ -1731,7 +1727,7 @@ var unitDict =
          * @param DensityUnits: units of density
          * @param VolumeUnits: units of volume desired
         **/
-        var ToVolume = function(Mass, MassUnits, Density, DensityUnits, VolumeUnits){
+        var ToVolume = function(Mass, MassUnits, Density, DensityUnits, VolumeUnits) {
             var density = convert("Density", DensityUnits, "kg/m^3", Density);
             var mass = convert("Mass", MassUnits, "kg", Mass);
             var volume = mass / density;
@@ -1746,7 +1742,7 @@ var unitDict =
          * @param DensityUnits: units of density
          * @param MassUnits: unit of mass desired for output
         **/
-        var ToMass = function(Volume, VolUnits, Density, DensityUnits, MassUnits){
+        var ToMass = function(Volume, VolUnits, Density, DensityUnits, MassUnits) {
             var density = convert("Density", DensityUnits, "kg/m^3", Density);
             var volume = convert("Volume", VolUnits, "m^3", Volume);
             var mass = volume * density;
@@ -1763,7 +1759,7 @@ var unitDict =
      * @param str String that is parsed to determine the decimal degree value
      * @return The decimal degree amount
     **/
-    var sexagesimal2decimal = function(str){
+    var sexagesimal2decimal = function(str) {
         /**
          * This version mirrors what the Python version does
          * https://github.com/NOAA-ORR-ERD/lat_lon_parser
@@ -1771,8 +1767,7 @@ var unitDict =
          * TODO: Maybe we should have a separate lat_lon_parser npm package?
         **/
 
-        str = str.trim();
-        str = str.toLowerCase();
+        str = str.trim().toLowerCase();
         str = str.replace("north", "n");
         str = str.replace("south", "s");
         str = str.replace("east", "e");
@@ -1790,44 +1785,51 @@ var unitDict =
         var deg = 0.0;
         var min = 0.0;
         var sec = 0.0;
+
         if (numbers.length == 1) { // decimal degrees
             deg = Number(numbers[0]);
         }
         else if (numbers.length == 2) { // degrees, minutes
             deg = Number(numbers[0]);
-            if (!Number.isInteger(deg)){
+            if (!Number.isInteger(deg)) {
                 throw "Value Error: Degrees must be an integer if minutes are there";
             }
+
             min = Number(numbers[1]);
         }
         else if (numbers.length === 3) { // degrees, minutes, seconds
             deg = Number(numbers[0]);
-            if (!Number.isInteger(deg)){
+            if (!Number.isInteger(deg)) {
                 throw "Value Error: Degrees must be an integer if minutes are there";
             }
+
             min = Number(numbers[1]);
-            if (!Number.isInteger(min)){
+            if (!Number.isInteger(min)) {
                 throw "Value Error: Minutes must be an integer if seconds are there.";
             }
+
             sec = Number(numbers[2]);
         }
 
-        if (deg > 180){
+        if (deg > 180) {
             throw "Degrees can not be greater than 180"
         }
-        if ((min > 60) || (sec > 60)){
+
+        if ((min > 60) || (sec > 60)) {
             throw "Minutes and seconds can not be greater than 60"
         }
+
         var dec = deg + (min / 60) + (sec / 3600);
         // set the sign
         dec = (Math.sign(dec) === Math.sign(negative)) ? dec : -dec ;
+
         if (Number.isNaN(dec)){
             throw "Value Error: invalid numbers";
         }
+
         // This used to return a string, which seems like a bad idea.
         // but rounding makes tests easier ??
-        dec = Number(dec.toFixed(8))
-        return dec;
+        return Number(dec.toFixed(8))
     };
 
     /**
@@ -1844,31 +1846,31 @@ var unitDict =
      *       go into the webgnomeclient code.  It does not seem to have
      *       much to do with unit conversion.
     **/
-    var _BurnDuration = function(thickness, waterFract){
+    var _BurnDuration = function(thickness, waterFract) {
         return (thickness - 0.002) / (0.000058 * (1 - waterFract));
     };
 
-    var rayleighDist = function(){
+    var rayleighDist = function() {
 
-        var rayleigh_sigma_from_wind = function(avg_speed){
+        var rayleigh_sigma_from_wind = function(avg_speed) {
             return Math.sqrt(2.0 / Math.PI) * avg_speed;
         };
 
-        var rayleigh_pdf = function(x, sigma){
+        var rayleigh_pdf = function(x, sigma) {
             var exponentForE = (-1.0 / 2.0) * (Math.pow(x, 2) / Math.pow(sigma, 2.0));
             return (x / Math.pow(sigma, 2) * Math.pow(Math.E, exponentForE));
         };
 
-        var rayleigh_cdf = function(x, sigma){
+        var rayleigh_cdf = function(x, sigma) {
             var exponentForE = (-1.0 / 2.0) * (Math.pow(x, 2) / Math.pow(sigma, 2.0));
             return 1.0 - Math.pow(Math.E, exponentForE);
         };
 
-        var rayleigh_quantile = function(f, sigma){
+        var rayleigh_quantile = function(f, sigma) {
             return (sigma * Math.sqrt((-1.0 * Math.log(Math.pow((1.0 - f), 2)))));
         };
 
-        var rangeFinder = function(avg_speed, uncertainty){
+        var rangeFinder = function(avg_speed, uncertainty) {
             var sigma = rayleigh_sigma_from_wind(avg_speed);
             var low = rayleigh_quantile(0.5 - uncertainty, sigma);
             var high = rayleigh_quantile(0.5 + uncertainty, sigma);
@@ -1881,15 +1883,15 @@ var unitDict =
 
     };
 
-    var waterDensity = function(){
+    var waterDensity = function() {
 
-        var calcRho = function(temp){
+        var calcRho = function(temp) {
             var rho;
             rho = 1000 * (1.0 - (temp + 288.9414) / (508929.2 * (temp + 68.12963)) * (Math.pow(temp - 3.9863, 2)));
             return rho;
         };
 
-        var calcRhos = function(rho, conc, temp){
+        var calcRhos = function(rho, conc, temp) {
             var rhos, coeffA, coeffB;
             coeffA = 0.824493 - 0.0040899 * temp + 0.000076438 * Math.pow(temp,2) - 0.00000082467 * Math.pow(temp,3) + 0.0000000053675 * Math.pow(temp,4);
             coeffB = -0.005724 + 0.00010227 * temp - 0.0000016546 * Math.pow(temp,2);
@@ -1897,7 +1899,7 @@ var unitDict =
             return rhos;
         };
 
-        var calcDensity = function(temp, conc){
+        var calcDensity = function(temp, conc) {
             var rho = calcRho(temp);
             var rhos = calcRhos(rho, conc, temp);
             return rhos;
