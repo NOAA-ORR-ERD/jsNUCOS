@@ -1448,8 +1448,6 @@ var unitDict =
 
 // END UNIT_DICT DECLARATION
 
-    var decimalReg = new RegExp(/[\d.]+/g);
-
     /**
     *
     * Modifies The string with the whitespace and capitalization removed.
@@ -1521,7 +1519,7 @@ var unitDict =
                 unit = synonyms[0];
             }
         });
-    
+
         return unit;
     }
 
@@ -1571,7 +1569,6 @@ var unitDict =
         this.Synonyms = {};
         this.Convertdata = {};
         this.PrimaryUnitNames = {};
-
 
         // loop through the UnitsDict to construct the a per term value and synomym set.
         // ['degrees', ((1.0, 273.15), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
@@ -1755,6 +1752,9 @@ var unitDict =
         };
     };
 
+    //var decimalReg = new RegExp(/[\d.]+/g);
+    var decimalReg = new RegExp(/\d+(?:[.,]\d+)?/g);
+
     /**
      * @param str String that is parsed to determine the decimal degree value
      * @return The decimal degree amount
@@ -1766,21 +1766,27 @@ var unitDict =
          *
          * TODO: Maybe we should have a separate lat_lon_parser npm package?
         **/
-
         str = str.trim().toLowerCase();
+
+        // replace full cardinal directions:
         str = str.replace("north", "n");
         str = str.replace("south", "s");
         str = str.replace("east", "e");
         str = str.replace("west", "w");
 
+        // replace cyrillic cardinal directions:
+        str = str.replace('с', 'n');
+        str = str.replace('ю', 's');
+        str = str.replace('в', 'e');
+        str = str.replace('з', 'w');
+
         // change W and S to a negative value
-        negative = str.endsWith("w") || str.endsWith("s") ? -1 : 1;
-        // capture minus sign
-        negative = str.startsWith("-") ? -1 : negative;
+        negative = ['w', 's'].includes(str.at(-1)) ? -1 : 1;
+        negative = ['-', 'w', 's'].includes(str[0]) ? -1 : negative;
 
         // find the parts
-        // var decimalReg = new RegExp(/[\d.]+/g);
         var numbers = str.match(decimalReg);
+        numbers = numbers.map(i => i.replace(',', '.'));
 
         var deg = 0.0;
         var min = 0.0;
