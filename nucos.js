@@ -1474,8 +1474,20 @@ var unitDict =
     * a unit type is something like "mass" while a unit of mass
     * would be "kilogram", "slug", etc.
     **/
-    var _GetUnitNames = function(unitType) {
-        return Object.keys(unitDict[unitType]);
+    var _GetUnitNames = function(unitType, primaryUnitName) {
+      if (primaryUnitName) {
+        // return all units that are synonyms of our primary unit name.
+        return unitDict.get(unitType, {})[primaryUnitName];
+      }
+      else {
+        // return all units as a flattened list
+        return new Set(Object.entries(unitDict[unitType]).map( ([k, v]) => {
+          return v[1].concat(
+            v[1].map(i => i.toLowerCase()),
+            v[1].map(i => _Simplify(i)),
+          );
+        }).flat()).keys().toArray().sort();
+      }
     };
 
     var _items = function(obj) {
@@ -1578,9 +1590,7 @@ var unitDict =
             dataDict.push([unitTerm, UnitsDict[unitTerm]]);
         }
 
-        dataDict.forEach(dataSet => {
-            var [primaryName, data] = dataSet;
-
+        dataDict.forEach( ([primaryName, data]) => {
             var pname = _Simplify(primaryName);
 
             this.PrimaryUnitNames[pname] = primaryName.replace(/\w\S*/g, (txt) => {
@@ -1591,6 +1601,7 @@ var unitDict =
             this.Synonyms[pname] = pname;
 
             data[1].forEach(synonym => {
+                this.Synonyms[synonym] = pname;
                 this.Synonyms[_Simplify(synonym)] = pname;
             });
         });
@@ -1661,18 +1672,12 @@ var unitDict =
 
     TempConverterClass.prototype.constructor = TempConverterClass;
 
-    // loop through the UnitsDict to construct the a per term value and synomym set.
+    // Loop through the UnitsDict to construct the a per term value and
+    // synomym set.
     // ['degrees', ((1.0, 273.15), ['C', 'degrees c', 'degrees celsius', 'deg c', 'centigrade'])]
     var Converters = {};
-    var dataDict = [];
 
-    for (var unitType in unitDict) {
-        dataDict.push([unitType, unitDict[unitType]]);
-    }
-
-    dataDict.forEach(dataSet => {
-        var [unitType, data] = dataSet;
-
+    Object.entries(unitDict).forEach( ([unitType, data]) => {
         if (unitType.toLowerCase() === "density") {
             Converters["density"] = new DensityConverterClass(unitType, data);
         }
@@ -1919,8 +1924,11 @@ var unitDict =
     var nucos = {
         _Simplify: _Simplify,
         _GetUnitTypes: _GetUnitTypes,
+        _GetUnitNames: _GetUnitNames,
         GetAbbreviation: GetAbbreviation,
         OilQuantityConverter: OilQuantityConverter,
+        unitDict: unitDict,
+        unitMap: unitMap,
         Converters: Converters,
         convert: convert,
         sexagesimal2decimal: sexagesimal2decimal,
