@@ -2,6 +2,5 @@ node_modules/
 .DS_Store
 
 nucos_temp.js
-package-lock.json
 temp_unit_data.json
 

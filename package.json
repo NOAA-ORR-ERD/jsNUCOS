@@ -35,8 +35,8 @@
   },
   "homepage": "https://github.com/NOAA-ORR-ERD/pyNUCOS#readme",
   "devDependencies": {
-    "mocha": "^6.1.4",
-    "requirejs": "^2.1.22"
+    "mocha": "^11.5.0",
+    "requirejs": "^2.3.0"
   }
 }
 
