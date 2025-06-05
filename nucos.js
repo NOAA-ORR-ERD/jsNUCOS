@@ -1822,15 +1822,20 @@ var unitDict =
             sec = Number(numbers[2]);
         }
 
-        if (deg > 180) {
-            throw "Degrees can not be greater than 180"
-        }
+        // if (deg > 180) {
+        //     throw "Degrees can not be greater than 180"
+        // }
 
         if ((min > 60) || (sec > 60)) {
             throw "Minutes and seconds can not be greater than 60"
         }
 
         var dec = deg + (min / 60) + (sec / 3600);
+
+        if (dec > 360) {
+            throw "Value cannot be greater than 360 degrees"
+        }
+
         // set the sign
         dec = (Math.sign(dec) === Math.sign(negative)) ? dec : -dec ;
 

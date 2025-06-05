@@ -153,13 +153,31 @@ describe('nucos.sexagesimal2decimal', function() {
         assert.throws(() => nucos.sexagesimal2decimal("23.4 14.2"));
     });
 
-    it('Should fail with too large values', function() {
+    it('Should fail with too large value for minutes', function() {
         assert.throws(() => nucos.sexagesimal2decimal("92 92"));
     });
 
-    it('Should fail with too large values', function() {
+    it('Should fail with too large value for seconds', function() {
         assert.throws(() => nucos.sexagesimal2decimal("3° 25' 61.0\" N"));
     });
+
+    // NOTE: only checks for > 360, 'cause it doesn't know if it's lat or lon
+    //       or which coord system for lon
+    it('Should fail with too large value for degrees', function() {
+        var in1 = "361°"
+        var in2 = "360° 0.01'"
+        assert.throws(() => nucos.sexagesimal2decimal(in1));
+        assert.throws(() => nucos.sexagesimal2decimal(in2));
+    });
+
+    it('should handle degrees up to 360 (pos or negative)', function() {
+        var lat = "359° 43' 30.16\"";
+        var lon = "359° 44' 43.97 \"W";
+
+        assert.equal(nucos.sexagesimal2decimal(lat), 359.72504444);
+        assert.equal(nucos.sexagesimal2decimal(lon), -359.74554722);
+    });
+
 
     it('should convert lat long into decimal', function() {
         var lon = "24° 43' 30.16\"";
