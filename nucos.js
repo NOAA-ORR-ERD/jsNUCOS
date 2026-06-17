@@ -1657,6 +1657,10 @@ var unitDict =
             fromUnit = this.Synonyms[fromUnit];
             toUnit = this.Synonyms[toUnit];
 
+            if (fromUnit === toUnit) {
+                return Value;
+            }
+
             var a1 = this.Convertdata[fromUnit][0];
             var b1 = this.Convertdata[fromUnit][1];
             var a2 = this.Convertdata[toUnit][0];
