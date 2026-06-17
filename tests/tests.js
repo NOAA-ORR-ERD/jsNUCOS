@@ -320,6 +320,10 @@ describe('nucos.convert', function() {
         assert.equal(nucos.convert("Density", "API degree", "kg/m^3", 10), 999.016);
     });
 
+    it('should return exact value for same temperature unit', function() {
+        assert.equal(nucos.convert('Temperature', 'F', 'F', 15), 15);
+    });
+
     it('should parse unicode exponents', function() {
         assert.equal(nucos.convert('Density', 'API degree', 'kg/m³', 10), 999.016);
     });
